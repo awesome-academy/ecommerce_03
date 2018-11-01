@@ -22,7 +22,7 @@ class CreateProductsTable extends Migration
             $table->text('preview');
             $table->text('description');
             $table->float('rating', 5, 1);
-            $table->integer('best_seller');
+            $table->integer('best_seller')->default(0);
             $table->string('energy');
             $table->string('strap_type');
             $table->string('skin_type');
