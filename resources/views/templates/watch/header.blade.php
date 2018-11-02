@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/png" href="images/icons/favicon.png"/>
     {{ Html::style(asset('css/all.css')) }}
-    {{ Html::style(asset('resources/assets/fonts/font-awesome-4.7.0/css/font-awesome.min.css')) }}
+    {{ Html::style(asset('css/app.css')) }}
 </head>
 <body class="animsition">
 

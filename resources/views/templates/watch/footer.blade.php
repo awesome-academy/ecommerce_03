@@ -70,5 +70,6 @@
     <div id="dropDownSelect2"></div>
 
     {{ Html::script(asset('js/all.js')) }}
+    {{ Html::script(asset('js/app.js')) }}
 </body>
 </html>

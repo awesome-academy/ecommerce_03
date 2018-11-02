@@ -12,6 +12,9 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/app.js', 'public/js')
+   .copy('resources/assets/fonts/font-awesome-4.7.0/fonts', 'public/fonts')
+   .copy('resources/assets/fonts/montserrat', 'public/fonts/montserrat')
+   .copy('resources/assets/fonts/poppins', 'public/fonts/poppins')
    .sass('resources/sass/app.scss', 'public/css');
 
 mix.styles([
