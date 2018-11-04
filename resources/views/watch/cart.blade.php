@@ -50,7 +50,7 @@
                             <tr>
                                 <td colspan="3"></td>
                                 <td>
-                                    <a class="btn btn-warning" href="">@lang('message.check_out')</a>
+                                    <a class="btn btn-warning" href="{{ route('cart.info') }}">@lang('message.check_out')</a>
                                 </td>
                             </tr>
                     </tbody>

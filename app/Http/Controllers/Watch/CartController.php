@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Watch;
 
 use Illuminate\Support\Facades\Auth;
 use App\Models\Product;
+use App\Models\Customer;
+use App\Models\Order;
+use App\Models\OrderDetail;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
@@ -27,6 +30,7 @@ class CartController extends Controller
     public function index(Request $request)
     {
         $products = $this->cookieCart();
+
         return view('watch.cart', compact('products'));
     }
 
@@ -98,5 +102,88 @@ class CartController extends Controller
         $cookie = cookie($user_cart, $item_data, config('custom.timeout_cookie'));
 
         return redirect()->route('cart.index')->withCookie($cookie);
+    }
+
+    public function inputInfo()
+    {
+        $count = Customer::where('user_id', '=', Auth::user()->id)->count();
+        if ($count > config('custom.zero')){
+            $customer = Customer::where('user_id', '=', Auth::user()->id)->first();
+        } else {
+            $customer = NULL;
+        }
+
+        $products = $this->cookieCart();
+
+        return view('watch.info', compact('count', 'customer', 'products'));
+    }
+
+    public function confirm(Request $request)
+    {
+        $count = Customer::where('user_id', '=', Auth::user()->id)->count();
+        if ($count > config('custom.zero')){
+            $customer = Customer::where('user_id', '=', Auth::user()->id)->first();
+            $customer->name = trim($request->name);
+            $customer->phone = trim($request->phone);
+            $customer->address = trim($request->address);
+            $customer->save();
+        } else {
+            $data = [
+                'name' => $request->name,
+                'phone' => $request->phone,
+                'address' => $request->address,
+                'avatar' => '',
+                'user_id' => Auth::user()->id,
+            ];
+            Customer::insert($data);
+            $customer = Customer::where('user_id', '=', Auth::user()->id)->first();
+        }
+
+        $products = $this->cookieCart();
+
+        return view('watch.confirm', compact('count', 'customer', 'products'));
+    }
+
+    public function checkout(Request $request)
+    {
+        $user_cart = 'shop_cart'.Auth::user()->id;
+        $customer = Customer::where('user_id', '=', Auth::user()->id)->first();
+        $cart_data = $this->cookieCart();
+
+        $item_id_list = array_column($cart_data, 'id_product');
+        $total = config('custom.zero');
+
+        foreach($cart_data as $keys => $values) {
+            $total = $cart_data[$keys]["quantity"] * $cart_data[$keys]["price"];
+        }
+
+        $data = [
+            'name' => $customer->name,
+            'phone' => $customer->phone,
+            'address' => $customer->address,
+            'payment_type' => 'Trả tiền khi nhận hàng',
+            'total_price' => $total,
+            'customer_id' => $customer->id,
+        ];
+        Order::insert($data);
+        $order = Order::where('customer_id', '=', $customer->id)->orderBy('id' ,'DESC')->first();
+
+        foreach($cart_data as $keys => $values) {
+            $dataDetail = [
+                'order_id' => $order->id,
+                'product_id' => $cart_data[$keys]["id_product"],
+                'quantity' => $cart_data[$keys]["quantity"],
+                'price' => $cart_data[$keys]["price"],
+                'name_product'=> $cart_data[$keys]["name"],
+            ];
+            $product = Product::findorfail($cart_data[$keys]["id_product"]);
+            $product->best_seller = $product->best_seller + $cart_data[$keys]["quantity"];
+            $product->save();
+            OrderDetail::insert($dataDetail);
+        }
+        $item_data = json_encode($cart_data);
+        $cookie = cookie($user_cart, $item_data, config('custom.unset_cookie'));
+
+        return redirect()->route('product.index')->withCookie($cookie);
     }
 }
