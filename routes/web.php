@@ -15,11 +15,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('index', function () {
-    return view('watch.index');
-});
-
-
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::group(['namespace' => 'Watch'], function() {
+    Route::resource('product', 'ProductController', ['only' => 'index']);
+    Route::get('addcart', 'ProductController@addcart')->name('product.addcart')->middleware('auth');
+});
