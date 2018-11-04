@@ -31,7 +31,6 @@ mix.styles([
 ], 'public/css/all.css');
 
 mix.scripts([
-    'resources/assets/vendor/jquery/jquery-3.2.1.min.js',
     'resources/assets/vendor/animsition/js/animsition.min.js',
     'resources/assets/vendor/bootstrap/js/popper.js',
     'resources/assets/vendor/bootstrap/js/bootstrap.min.js',
