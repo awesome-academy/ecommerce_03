@@ -58,5 +58,7 @@ return [
         'strap_type' => 'Type Strap',
         'skin_type' => 'Type Skin',
         'quantity' => 'Quantity',
+        'total' => 'Total',
+        'no_products' => 'No products in cart',
     ],
 ];
