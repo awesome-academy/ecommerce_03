@@ -73,4 +73,5 @@ return [
     'description' => 'Description',
     'add_information' => 'Additional information',
     'review' => 'Reviews',
+
 ];
