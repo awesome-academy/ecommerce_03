@@ -11,16 +11,22 @@ use Cookie;
 
 class CartController extends Controller
 {
-    public function index(Request $request)
+    public function cookieCart()
     {
         $user_cart = 'shop_cart'.Auth::user()->id;
         if (Cookie::get($user_cart)){
             $cookie_data = Cookie::get($user_cart);
-            $products = json_decode($cookie_data, true);
+            $cart_data = json_decode($cookie_data, true);
         } else {
-            $products = array();
+            $cart_data = array();
         }
 
+        return $cart_data;
+    }
+
+    public function index(Request $request)
+    {
+        $products = $this->cookieCart();
         return view('watch.cart', compact('products'));
     }
 
@@ -28,18 +34,13 @@ class CartController extends Controller
     {
         $user_cart = 'shop_cart'.Auth::user()->id;
         $product = Product::findorfail($request->id_product);
-        if (Cookie::get($user_cart)){
-            $cookie_data = Cookie::get($user_cart);
-            $cart_data = json_decode($cookie_data, true);
-        } else {
-            $cart_data = array();
-        }
+        $cart_data = $this->cookieCart();
         $item_id_list = array_column($cart_data, 'id_product');
 
         if(in_array($request->id_product, $item_id_list)) {
             foreach($cart_data as $keys => $values) {
                 if($cart_data[$keys]["id_product"] == $request->id_product) {
-                    $cart_data[$keys]["quantity"] = $cart_data[$keys]["quantity"] + 1;
+                    $cart_data[$keys]["quantity"] = $cart_data[$keys]["quantity"] + config('custom.min');
                 }
             }
         } else {
@@ -47,12 +48,12 @@ class CartController extends Controller
                 'id_product'   => $request->id_product,
                 'name'   => $product->name,
                 'price'  => $product->price,
-                'quantity'  => 1
+                'quantity'  => config('custom.min'),
             );
             $cart_data[] = $item_array;
         }
         $item_data = json_encode($cart_data);
-        $cookie = cookie($user_cart, $item_data, 86000);
+        $cookie = cookie($user_cart, $item_data, config('custom.timeout_cookie'));
         $respone = new Response;
         return $respone->withCookie($cookie);
     }
@@ -60,12 +61,7 @@ class CartController extends Controller
     public function update(Request $request, $id)
     {
         $user_cart = 'shop_cart'.Auth::user()->id;
-        if (Cookie::get($user_cart)){
-            $cookie_data = Cookie::get($user_cart);
-            $cart_data = json_decode($cookie_data, true);
-        } else {
-            return redirect()->route('product.index');
-        }
+        $cart_data = $this->cookieCart();
         $item_id_list = array_column($cart_data, 'id_product');
 
         if(in_array($id, $item_id_list)) {
@@ -78,7 +74,7 @@ class CartController extends Controller
             return redirect()->route('cart.index');
         }
         $item_data = json_encode($cart_data);
-        $cookie = cookie($user_cart, $item_data, 86000);
+        $cookie = cookie($user_cart, $item_data, config('custom.timeout_cookie'));
 
         return redirect()->route('cart.index')->withCookie($cookie);
     }
@@ -86,12 +82,7 @@ class CartController extends Controller
     public function destroy(Request $request, $id)
     {
         $user_cart = 'shop_cart'.Auth::user()->id;
-        if (Cookie::get($user_cart)){
-            $cookie_data = Cookie::get($user_cart);
-            $cart_data = json_decode($cookie_data, true);
-        } else {
-            return redirect()->route('product.index');
-        }
+        $cart_data = $this->cookieCart();
         $item_id_list = array_column($cart_data, 'id_product');
 
         if(in_array($id, $item_id_list)) {
@@ -104,7 +95,7 @@ class CartController extends Controller
             return redirect()->route('cart.index');
         }
         $item_data = json_encode($cart_data);
-        $cookie = cookie($user_cart, $item_data, 86000);
+        $cookie = cookie($user_cart, $item_data, config('custom.timeout_cookie'));
 
         return redirect()->route('cart.index')->withCookie($cookie);
     }

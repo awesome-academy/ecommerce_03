@@ -1,6 +1,5 @@
 @extends('templates.watch.master')
 @section('content')
-    {{-- @php dd($products); @endphp --}}
     @if (count($products) > config('custom.zero'))
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -28,12 +27,13 @@
                                 <td>{{ $product['price'] }} {{ config('custom.vnd') }}</td>
                                 <td>
                                     {!! Form::open(['route' => ['cart.update', $product['id_product']], 'method' => 'patch', 'id' => 'form-quantity-'.$product['id_product']]) !!}
-                                        {{ Form::number('number',  $product['quantity'] , ['min' => 1, 'id' => 'quantity-'.$product['id_product'], 'onchange' => 'change('.$product['id_product'].')', 'class' => 'form-control', 'required']) }}
+                                        {{ Form::number('number',  $product['quantity'] , ['min' => config('custom.min'), 'id' => 'quantity-'.$product['id_product'],
+                                        'onchange' => 'change('.$product['id_product'].')', 'class' => 'form-control', 'required']) }}
                                     {!! Form::close() !!}
                                 </td>
                                 <td>
-                                    {!! Form::open(['route' => ['cart.destroy', $product['id_product']], 'method' => 'delete']) !!}
-                                        {!! Form::submit(trans('message.delete'), ['class' => 'btn btn-danger', 'onclick' => 'return confirm("Are you sure?")']) !!}
+                                    {!! Form::open(['route' => ['cart.destroy', $product['id_product']], 'method' => 'delete', 'onsubmit' => 'return confirm("Are you sure?")']) !!}
+                                        {!! Form::submit(trans('message.delete'), ['class' => 'btn btn-danger']) !!}
                                     {!! Form::close() !!}
                                 </td>
                             </tr>

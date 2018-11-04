@@ -24,7 +24,7 @@ function addcart(id_product){
 function change(id_product)
 {
     var value = $('#quantity-'+id_product).val();
-    if (value == false || value <0 )
+    if (value == false || value < 0 )
     {
         alert('Input again');
         return false;
