@@ -51,5 +51,12 @@ return [
     'delete_fail' => 'Delete Fail',
     'edit_suc' => 'Edit Sucess',
     'edit_fail' => 'Edit Fail',
-
+    'product' => [
+        'name_product' => 'Name Product',
+        'price' => 'Price',
+        'energy' => 'Energy',
+        'strap_type' => 'Type Strap',
+        'skin_type' => 'Type Skin',
+        'quantity' => 'Quantity',
+    ],
 ];
