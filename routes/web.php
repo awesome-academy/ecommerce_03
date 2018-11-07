@@ -21,5 +21,5 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['namespace' => 'Watch'], function() {
     Route::resource('product', 'ProductController', ['only' => 'index']);
-    Route::get('addcart', 'ProductController@addcart')->name('product.addcart')->middleware('auth');
+    Route::resource('cart', 'CartController', ['only' => ['index', 'create', 'update', 'destroy']])->middleware('auth');
 });
