@@ -61,4 +61,10 @@ return [
         'total' => 'Total',
         'no_products' => 'No products in cart',
     ],
+    'phone' => 'Phone Number',
+    'address' => 'Address',
+    'input_your_infor' => 'Input Your Information',
+    'your_infor' => 'Your Information',
+    'next' => 'Next',
+    'confirm' => 'Confirm',
 ];
