@@ -21,6 +21,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::group(['namespace' => 'Watch'], function() {
     Route::resource('/', 'ProductController', ['only' => 'index']);
     Route::get('{name}/{id}', 'ProductController@detail')->name('product.detail');
+    Route::get('filter', 'ProductController@filter')->name('product.filter');
+
     Route::resource('cart', 'CartController', ['only' => ['index', 'create', 'update', 'destroy']])->middleware('auth');
     Route::get('changecart', 'CartController@changeCart')->name('cart.change')->middleware('auth');
     Route::get('info', 'CartController@inputInfo')->name('cart.info')->middleware('auth');
