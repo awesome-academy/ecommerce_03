@@ -4,20 +4,33 @@ $(".selection-1").select2({
 });
 
 function addcart(id_product){
-    var route_name = document.getElementById(id_product).value;
-    $.ajax({
-        url: route_name,
-        type: 'GET',
-        dataType: 'html',
-        data: {
-           id_product:id_product
-        },
-        success: function(data){
-            alert('Đã thêm sản phẩm vào giỏ hàng');
-        },
-        error: function(){
-            alert('Có lỗi khi thêm sản phẩm');
-        }
+    try {
+        var route_name = document.getElementById(id_product).value;
+        $.ajax({
+            url: route_name,
+            type: 'GET',
+            async: false,
+            dataType: 'html',
+            data: {
+               id_product:id_product
+            },
+            success: function(data){
+                $('.header-icons-noti').html(data);
+            },
+            error: function(){
+                alert('Có lỗi khi thêm sản phẩm');
+            }
+        });
+        changecart(id_product);
+    } catch (error) {
+        alert(error);
+    }
+}
+
+function changecart(id_product){
+    var route = document.getElementById('changecart-'+id_product).value;
+    $.get(route, function(data){
+        $('.change-cart').html(data);
     });
 }
 

@@ -13,6 +13,7 @@ return [
     'any_question' => 'Any questions? Let us know in store at 8th floor, 379 Hudson St, New York, NY 10018 or call us on (+1) 96 716 6879',
     'home' => 'Home',
     'featured_product' => 'Featured Products',
+    'new_product' => 'Newest Products',
     'add_to_cart' => 'Add to Cart',
     'our_blog' => 'Our Blog',
     'free_delivery' => 'Free Delivery Worldwide',
@@ -67,4 +68,9 @@ return [
     'your_infor' => 'Your Information',
     'next' => 'Next',
     'confirm' => 'Confirm',
+    'profile' => 'Profile',
+    'account' => 'Account',
+    'description' => 'Description',
+    'add_information' => 'Additional information',
+    'review' => 'Reviews',
 ];
