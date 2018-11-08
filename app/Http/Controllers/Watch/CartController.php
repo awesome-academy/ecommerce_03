@@ -181,6 +181,7 @@ class CartController extends Controller
                 'quantity' => $cart_data[$keys]["quantity"],
                 'price' => $cart_data[$keys]["price"],
                 'name_product'=> $cart_data[$keys]["name"],
+                'picture' => $cart_data[$keys]['picture']
             ];
             $product = Product::findorfail($cart_data[$keys]["id_product"]);
             $product->best_seller = $product->best_seller + $cart_data[$keys]["quantity"];
@@ -190,7 +191,7 @@ class CartController extends Controller
         $item_data = json_encode($cart_data);
         $cookie = cookie($user_cart, $item_data, config('custom.unset_cookie'));
 
-        return redirect()->route('product.index')->withCookie($cookie);
+        return redirect()->route('index')->withCookie($cookie);
     }
 
     public function changeCart(Request $request)

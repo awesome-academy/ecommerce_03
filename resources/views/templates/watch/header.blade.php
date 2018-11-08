@@ -68,8 +68,14 @@
                             <li>
                                 <i class="fa fa-user fa-2x fa-fw"></i>{{ Auth::user()->name }}
                                 <ul class="sub_menu_user">
-                                    <li><a href="">@lang('message.profile')</a></li>
-                                    <li><a href="{{ Route('logout') }}">@lang('message.logout')</a></li>
+                                    <li><a href="{{ Route('profile.index') }}">@lang('message.profile')</a></li>
+                                    @if (Auth::user()->role == config('custom.customer'))
+                                    <li><a href="{{ Route('profile.order') }}">@lang('message.your_order')</a></li>
+                                    @endif
+                                    <li><a id="click-logout" href="javascript:;">@lang('message.logout')</a>
+                                        {{ Form::open(['route' => 'logout', 'method' => 'post', 'id' => 'logout-form',]) }}
+                                        {{ Form::close() }}
+                                    </li>
                                 </ul>
                             </li>
                         @else
