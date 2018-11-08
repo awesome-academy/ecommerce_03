@@ -28,6 +28,7 @@ mix.styles([
     'resources/assets/vendor/lightbox2/css/lightbox.min.css',
     'resources/assets/css/util.css',
     'resources/assets/css/main.css',
+    'resources/assets/vendor/noui/nouislider.min.css',
 ], 'public/css/all.css');
 
 mix.scripts([
@@ -43,5 +44,6 @@ mix.scripts([
     'resources/assets/vendor/sweetalert/sweetalert.min.js',
     'resources/assets/js/btn.js',
     'resources/assets/js/main.js',
+    'resources/assets/vendor/noui/nouislider.min.js',
     'resources/assets/js/filterbar.js',
 ], 'public/js/all.js');

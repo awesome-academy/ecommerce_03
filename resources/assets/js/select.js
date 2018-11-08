@@ -44,3 +44,47 @@ function change(id_product)
     }
     $("#form-quantity-"+id_product).submit();
 }
+
+function common(name){
+    var common = $('input:checkbox[name="' + name + '[]"]');
+    common.on('change', function(e){
+        if($(this).attr('id')!= name + '-all')
+        {
+            if($(this).is(':checked'))
+                $('#' + name + '-all').prop('checked', false);
+
+            else
+            {
+                var le2 = $(':checkbox[name="' + name + '[]"]')
+                    .filter(':checked')
+                    .not('#' + name + '-all').length;
+                if (le2 == 0)
+                  $('#' + name + '-all').prop('checked', true);
+
+            }
+        }
+        else
+        {
+            if($(this).is(':checked')){
+                common.not($(this)).prop('checked', false);
+            } else {
+                common.not($(this)).prop('checked', false);
+                $(this).prop('checked', true);
+            }
+        }
+      $('.filter-form').submit();
+    });
+}
+common('cat');
+common('skin');
+common('strap');
+common('energy');
+
+$('#filter_price').on('click', function(){
+    $('.filter-form').submit();
+});
+
+$('.selection-2').on('change', function(){
+    document.getElementById("sort").innerHTML = "<input type='hidden' name='sort' value='"+$(this).val()+"' />" ;
+    $('.filter-form').submit();
+});

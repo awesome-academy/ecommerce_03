@@ -38,12 +38,12 @@
                         <ul class="main_menu">
                             @foreach ($categories as $category)
                             <li>
-                                <a href="">{{ $category->name }}</a>
+                                <a href="{{ Route('product.filter', ['cat[]' => $category->id]) }}">{{ $category->name }}</a>
                                 @if (count($category->children) > config('custom.zero'))
                                 <ul class="sub_menu">
                                     @foreach ($category->children as $sub_category)
                                     <li>
-                                        <a href="index.html">{{ $sub_category->name }}</a>
+                                        <a href="{{ Route('product.filter', ['cat[]' => $sub_category->id]) }}">{{ $sub_category->name }}</a>
                                     </li>
                                     @endforeach
                                 </ul>

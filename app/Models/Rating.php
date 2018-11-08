@@ -8,12 +8,12 @@ use App\Models\Product;
 
 class Rating extends Model
 {
-    public function products()
+    public function product()
     {
         return $this->belongsTo(Product::class);
     }
 
-    public function users()
+    public function user()
     {
         return $this->belongsTo(User::class);
     }

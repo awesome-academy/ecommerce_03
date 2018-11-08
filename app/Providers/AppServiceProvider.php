@@ -29,6 +29,8 @@ class AppServiceProvider extends ServiceProvider
                     foreach ($cart_data as $keys => $values) {
                         $count_cart += $cart_data[$keys]['quantity'];
                     }
+                } else {
+                    $cart_data = array();
                 }
                 $view->with('count_cart', $count_cart)->with('cart_data', $cart_data);
             }

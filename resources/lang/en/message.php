@@ -56,8 +56,8 @@ return [
         'name_product' => 'Name Product',
         'price' => 'Price',
         'energy' => 'Energy',
-        'strap_type' => 'Type Strap',
-        'skin_type' => 'Type Skin',
+        'strap_type' => 'Strap Type',
+        'skin_type' => 'Skin Type',
         'quantity' => 'Quantity',
         'total' => 'Total',
         'no_products' => 'No products in cart',
@@ -73,4 +73,22 @@ return [
     'description' => 'Description',
     'add_information' => 'Additional information',
     'review' => 'Reviews',
+    'categories' => 'Categories',
+    'leftbar' => [
+        'all' => 'Tất cả',
+        'range' => 'Range',
+        'leather_cord' => 'Dây da',
+        'stainless_steel' => 'Thép không gỉ',
+        'mechanical_watch' => 'Đồng hồ cơ',
+        'electronic_watch' => 'Đồng hồ điện tử',
+        'solid_gold' => 'Vàng nguyên khối',
+        'plastic_cover' => 'Vỏ nhựa',
+    ],
+    'sort' => [
+        'default' => 'Default Sorting',
+        'popularity' => 'Popularity',
+        'price_asc' => 'Price: low to high',
+        'price_desc' => 'Price: high to low',
+    ],
+
 ];
