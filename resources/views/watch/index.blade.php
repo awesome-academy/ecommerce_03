@@ -1,25 +1,7 @@
 @extends('templates.watch.master')
 @section('content')
     <section class="slide1">
-        <div class="wrap-slick1">
-            <div class="slick1">
-                <div class="item-slick1 item1-slick1" style="background-image: url(resources/assets/images/master-slide-02.jpg);">
-                    <div class="wrap-content-slide1 sizefull flex-col-c-m p-l-15 p-r-15 p-t-150 p-b-170">
-                        <span class="caption1-slide1 m-text1 t-center animated visible-false m-b-15" data-appear="fadeInDown">
-                        </span>
-
-                        <h2 class="caption2-slide1 xl-text1 t-center animated visible-false m-b-37" data-appear="fadeInUp">
-                        </h2>
-
-                        <div class="wrap-btn-slide1 w-size1 animated visible-false" data-appear="zoomIn">
-                            <a href="product.html" class="flex-c-m size2 bo-rad-23 s-text2 bgwhite hov1 trans-0-4">
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
+            {{ Html::image(asset('images/icons/slider.jpg')) }}
     </section>
 
     <section class="newproduct bgwhite p-t-45 p-b-105">
@@ -32,11 +14,11 @@
 
             <div class="wrap-slick2">
                 <div class="slick2">
-
+                    @foreach ($trend_products as $product)
                     <div class="item-slick2 p-l-15 p-r-15">
                         <div class="block2">
-                            <div class="block2-img wrap-pic-w of-hidden pos-relative block2-labelnew">
-                                <img src="images/item-02.jpg" alt="IMG-PRODUCT">
+                            <div class="block2-img wrap-pic-w of-hidden pos-relative">
+                                {{ Html::image(asset("images/products/$product->picture")) }}
 
                                 <div class="block2-overlay trans-0-4">
                                     <a href="#" class="block2-btn-addwishlist hov-pointer trans-0-4">
@@ -45,22 +27,72 @@
                                     </a>
 
                                     <div class="block2-btn-addcart w-size1 trans-0-4">
-                                        {{ Form::button(trans('message.add_to_cart'), ['class' => 'flex-c-m size1 bg4 bo-rad-23 hov1 s-text1 trans-0-4']) }}
-
+                                        <a href="javascript:;" class="flex-c-m size1 bg4 bo-rad-23 hov1 s-text1 trans-0-4" {{ Auth::check()? 'onclick=addcart('.$product->id.')': '' }}>@lang('message.add_to_cart')
+                                            {{ Form::hidden('name', route('cart.create'), array('id' => $product->id)) }}
+                                            {{ Form::hidden('change', route('cart.change'), array('id' => 'changecart-'.$product->id)) }}
+                                        </a>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="block2-txt p-t-20">
-                                <a href="product-detail.html" class="block2-name dis-block s-text3 p-b-5">
+                                <a href="{{route('product.detail',['name' => str_slug($product->name),'id' => $product->id])}}" class="block2-name dis-block s-text3 p-b-5">{{ $product->name }}
                                 </a>
 
                                 <span class="block2-price m-text6 p-r-5">
+                                  <i class="fa fa-money"></i>  {{ number_format($product->price) }} {{ config('custom.vnd') }}
                                 </span>
                             </div>
                         </div>
                     </div>
+                    @endforeach
+                </div>
+            </div>
 
+        </div>
+    </section>
+
+    <section class="newproduct bgwhite p-t-45 p-b-105">
+        <div class="container">
+            <div class="sec-title p-b-60">
+                <h3 class="m-text5 t-center">
+                    @lang('message.new_product')
+                </h3>
+            </div>
+
+            <div class="wrap-slick4">
+                <div class="slick4">
+                    @foreach ($new_products as $product)
+                    <div class="item-slick2 p-l-15 p-r-15">
+                        <div class="block2">
+                            <div class="block2-img wrap-pic-w of-hidden pos-relative block2-labelnew">
+                                {{ Html::image(asset("images/products/$product->picture")) }}
+
+                                <div class="block2-overlay trans-0-4">
+                                    <a href="#" class="block2-btn-addwishlist hov-pointer trans-0-4">
+                                        <i class="icon-wishlist icon_heart_alt" aria-hidden="true"></i>
+                                        <i class="icon-wishlist icon_heart dis-none" aria-hidden="true"></i>
+                                    </a>
+
+                                    <div class="block2-btn-addcart w-size1 trans-0-4">
+                                        {{ Form::button(trans('message.add_to_cart'), ['class' => 'flex-c-m size1 bg4 bo-rad-23 hov1 s-text1 trans-0-4', 'onclick' => Auth::check() ? 'addcart('.$product->id.')' : '']) }}
+                                        {{ Form::hidden('name', route('cart.create'), array('id' => $product->id)) }}
+                                        {{ Form::hidden('change', route('cart.change'), array('id' => 'changecart-'.$product->id)) }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="block2-txt p-t-20">
+                                <a href="{{route('product.detail',['name' => str_slug($product->name),'id' => $product->id])}}" class="block2-name dis-block s-text3 p-b-5">{{ $product->name }}
+                                </a>
+
+                                <span class="block2-price m-text6 p-r-5">
+                                  <i class="fa fa-money"></i>  {{ number_format($product->price) }} {{ config('custom.vnd') }}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    @endforeach
                 </div>
             </div>
 

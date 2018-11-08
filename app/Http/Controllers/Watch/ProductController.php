@@ -14,6 +14,12 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::paginate(config('custom.paginate'));
-        return view('watch.product', compact('products'));
+        return view('watch.index', compact('products'));
+    }
+
+    public function detail(Request $request, $name, $id)
+    {
+        $product = Product::findorfail($id);
+        return view('watch.product_detail', compact('product'));
     }
 }
