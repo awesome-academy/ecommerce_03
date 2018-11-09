@@ -2346,4 +2346,65 @@ input.num-product::-webkit-inner-spin-button {
     margin: 0;
 }
 
+.wrap-slick4 {
+  position: relative;
+  margin-right: -15px;
+  margin-left: -15px;
+}
 
+.main_menu > li:hover > .sub_menu_user{
+  visibility: visible;
+  opacity: 1;
+}
+
+.sub_menu_user {
+  list-style-type: none;
+  position: absolute;
+  z-index: 1100;
+  top: 0;
+  left: 100%;
+  width: 225px;
+  background-color: #d6d6d6;
+  opacity: 0;
+  visibility: hidden;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  transition: all 0.4s;
+  -webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+}
+
+.main_menu > li > .sub_menu_user {
+  top: 100%;
+  left: 0;
+  position: absolute;
+}
+
+.sub_menu_user li:hover > .sub_menu_user {
+  visibility: visible;
+  opacity: 1;
+}
+
+.sub_menu_user li {
+  transition: all 0.3s;
+  -webkit-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+}
+
+.sub_menu_user li, .sub_menu_user a {
+  padding: 10px;
+  font-family: Montserrat-Regular;
+  font-size: 13px;
+  color: black;
+}
+
+.sub_menu_user > li:hover > a {
+  color: #e65540;
+  text-decoration: none;
+}
+
+.slide1 img {
+  width: 100%;
+}

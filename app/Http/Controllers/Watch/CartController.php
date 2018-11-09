@@ -36,6 +36,7 @@ class CartController extends Controller
 
     public function create(Request $request)
     {
+        $count_cart = config('custom.zero');
         $user_cart = 'shop_cart'.Auth::user()->id;
         $product = Product::findorfail($request->id_product);
         $cart_data = $this->cookieCart();
@@ -53,9 +54,14 @@ class CartController extends Controller
                 'name'   => $product->name,
                 'price'  => $product->price,
                 'quantity'  => config('custom.min'),
+                'picture' => $product->picture,
             );
             $cart_data[] = $item_array;
         }
+        foreach($cart_data as $keys => $values) {
+            $count_cart += $cart_data[$keys]["quantity"];
+        }
+        echo $count_cart;
         $item_data = json_encode($cart_data);
         $cookie = cookie($user_cart, $item_data, config('custom.timeout_cookie'));
         $respone = new Response;
@@ -185,5 +191,16 @@ class CartController extends Controller
         $cookie = cookie($user_cart, $item_data, config('custom.unset_cookie'));
 
         return redirect()->route('product.index')->withCookie($cookie);
+    }
+
+    public function changeCart(Request $request)
+    {
+        $user_cart = 'shop_cart'.Auth::user()->id;
+        $total = config('custom.zero');
+        if (Cookie::get($user_cart)){
+            $cookie_data = Cookie::get($user_cart);
+            $cart_data = json_decode($cookie_data, true);
+            return view('watch.load_cart', compact($cart_data));
+        }
     }
 }

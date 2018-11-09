@@ -2470,20 +2470,33 @@ $(".selection-1").select2({
 });
 
 function addcart(id_product){
-    var route_name = document.getElementById(id_product).value;
-    $.ajax({
-        url: route_name,
-        type: 'GET',
-        dataType: 'html',
-        data: {
-           id_product:id_product
-        },
-        success: function(data){
-            alert('Đã thêm sản phẩm vào giỏ hàng');
-        },
-        error: function(){
-            alert('Có lỗi khi thêm sản phẩm');
-        }
+    try {
+        var route_name = document.getElementById(id_product).value;
+        $.ajax({
+            url: route_name,
+            type: 'GET',
+            async: false,
+            dataType: 'html',
+            data: {
+               id_product:id_product
+            },
+            success: function(data){
+                $('.header-icons-noti').html(data);
+            },
+            error: function(){
+                alert('Có lỗi khi thêm sản phẩm');
+            }
+        });
+        changecart(id_product);
+    } catch (error) {
+        alert(error);
+    }
+}
+
+function changecart(id_product){
+    var route = document.getElementById('changecart-'+id_product).value;
+    $.get(route, function(data){
+        $('.change-cart').html(data);
     });
 }
 
@@ -2590,8 +2603,8 @@ function change(id_product)
             slidesToShow: 4,
             slidesToScroll: 4,
             infinite: true,
-            autoplay: false,
-            autoplaySpeed: 6000,
+            autoplay: true,
+            autoplaySpeed: 2000,
             arrows: true,
             appendArrows: $('.wrap-slick2'),
             prevArrow:'<button class="arrow-slick2 prev-slick2"><i class="fa  fa-angle-left" aria-hidden="true"></i></button>',
@@ -2644,17 +2657,62 @@ function change(id_product)
             arrows: false,
             customPaging: function(slick, index) {
                 var portrait = $(slick.$slides[index]).data('thumb');
-                return '<img src=" ' + portrait + ' "/><div class="slick3-dot-overlay"></div>';
+                return '<img src="' + portrait + '"/><div class="slick3-dot-overlay"></div>';
             },
         });
 
 
+                /*[ Slick4 ]
+        ===========================================================*/
+        $('.slick4').slick({
+            slidesToShow: 4,
+            slidesToScroll: 4,
+            infinite: true,
+            autoplay: true,
+            autoplaySpeed: 3000,
+            arrows: true,
+            appendArrows: $('.wrap-slick4'),
+            prevArrow:'<button class="arrow-slick2 prev-slick2"><i class="fa  fa-angle-left" aria-hidden="true"></i></button>',
+            nextArrow:'<button class="arrow-slick2 next-slick2"><i class="fa  fa-angle-right" aria-hidden="true"></i></button>',
+            responsive: [
+                {
+                  breakpoint: 1200,
+                  settings: {
+                    slidesToShow: 4,
+                    slidesToScroll: 4
+                  }
+                },
+                {
+                  breakpoint: 992,
+                  settings: {
+                    slidesToShow: 3,
+                    slidesToScroll: 3
+                  }
+                },
+                {
+                  breakpoint: 768,
+                  settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 2
+                  }
+                },
+                {
+                  breakpoint: 576,
+                  settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1
+                  }
+                }
+            ]
+        });
+
 
 })(jQuery);
+
 (function ($) {
     "use strict";
 
-    function getTimeRemaining(endtime) {
+    function getTimeRemaining(endtime) { 
       var t = Date.parse(endtime) - Date.parse(new Date());
       var seconds = Math.floor((t / 1000) % 60);
       var minutes = Math.floor((t / 1000 / 60) % 60);
@@ -2669,13 +2727,13 @@ function change(id_product)
       };
     }
 
-    function initializeClock(id, endtime) {
+    function initializeClock(id, endtime) { 
       var daysSpan = $('.days');
       var hoursSpan = $('.hours');
       var minutesSpan = $('.minutes');
       var secondsSpan = $('.seconds');
 
-      function updateClock() {
+      function updateClock() { 
         var t = getTimeRemaining(endtime);
 
         daysSpan.html(t.days);
@@ -2692,7 +2750,7 @@ function change(id_product)
       var timeinterval = setInterval(updateClock, 1000);
     }
 
-    var deadline = new Date(Date.parse(new Date()) + 69 * 24 * 60 * 60 * 1000 + 13 * 60 * 60 * 1000);
+    var deadline = new Date(Date.parse(new Date()) + 69 * 24 * 60 * 60 * 1000 + 13 * 60 * 60 * 1000); 
     initializeClock('clockdiv', deadline);
 
 })(jQuery);
@@ -2727,7 +2785,7 @@ $('.block2-btn-addwishlist').each(function(){
 $('.btn-addcart-product-detail').each(function(){
     var nameProduct = $('.product-detail-name').html();
     $(this).on('click', function(){
-        swal(nameProduct, "is added to wishlist !", "success");
+        swal(nameProduct, "is added to cart !", "success");
     });
 });
 
@@ -2756,7 +2814,7 @@ $('.btn-addcart-product-detail').each(function(){
         overlayParentElement : 'html',
         transition: function(url){ window.location.href = url; }
     });
-
+    
     /*[ Back to top ]
     ===========================================================*/
     var windowH = $(window).height()/2;
@@ -2784,8 +2842,8 @@ $('.btn-addcart-product-detail').each(function(){
     var sub_menu_is_showed = -1;
 
     for(var i=0; i<menu.length; i++){
-        $(menu[i]).on('click', function(){
-
+        $(menu[i]).on('click', function(){ 
+            
                 if(jQuery.inArray( this, menu ) == sub_menu_is_showed){
                     $(this).parent().find('.header-dropdown').toggleClass('show-header-dropdown');
                     sub_menu_is_showed = -1;
@@ -2822,29 +2880,29 @@ $('.btn-addcart-product-detail').each(function(){
 
         if($(this).scrollTop() >= posWrapHeader) {
             $('.header1').addClass('fixed-header');
-            $(header).css('top',-posWrapHeader);
+            $(header).css('top',-posWrapHeader); 
 
-        }
+        }  
         else {
-            var x = - $(this).scrollTop();
-            $(header).css('top',x);
+            var x = - $(this).scrollTop(); 
+            $(header).css('top',x); 
             $('.header1').removeClass('fixed-header');
-        }
+        } 
 
         if($(this).scrollTop() >= 200 && $(window).width() > 992) {
             $('.fixed-header2').addClass('show-fixed-header2');
-            $('.header2').css('visibility','hidden');
+            $('.header2').css('visibility','hidden'); 
             $('.header2').find('.header-dropdown').removeClass("show-header-dropdown");
-
-        }
+            
+        }  
         else {
             $('.fixed-header2').removeClass('show-fixed-header2');
-            $('.header2').css('visibility','visible');
+            $('.header2').css('visibility','visible'); 
             $('.fixed-header2').find('.header-dropdown').removeClass("show-header-dropdown");
-        }
+        } 
 
     });
-
+    
     /*[ Show menu mobile ]
     ===========================================================*/
     $('.btn-show-menu-mobile').on('click', function(){
@@ -2926,7 +2984,7 @@ $('.btn-addcart-product-detail').each(function(){
 
         setTimeout(function(){
             $('.video-mo-01').css('opacity','1');
-        },300);
+        },300);      
     });
 
     $('[data-dismiss="modal"]').on('click',function(){
