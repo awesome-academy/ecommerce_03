@@ -2408,3 +2408,7 @@ input.num-product::-webkit-inner-spin-button {
 .slide1 img {
   width: 100%;
 }
+
+.checkbox {
+  display: block;
+}

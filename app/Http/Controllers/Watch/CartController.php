@@ -160,7 +160,7 @@ class CartController extends Controller
         $total = config('custom.zero');
 
         foreach($cart_data as $keys => $values) {
-            $total = $cart_data[$keys]["quantity"] * $cart_data[$keys]["price"];
+            $total += $cart_data[$keys]["quantity"] * $cart_data[$keys]["price"];
         }
 
         $data = [
@@ -200,6 +200,7 @@ class CartController extends Controller
         if (Cookie::get($user_cart)){
             $cookie_data = Cookie::get($user_cart);
             $cart_data = json_decode($cookie_data, true);
+
             return view('watch.load_cart', compact($cart_data));
         }
     }
