@@ -2412,3 +2412,12 @@ input.num-product::-webkit-inner-spin-button {
 .checkbox {
   display: block;
 }
+
+.img_product img {
+  height: 100px;
+}
+.panel {
+  width: 100%;
+  height: 400px;
+  overflow: auto;
+}

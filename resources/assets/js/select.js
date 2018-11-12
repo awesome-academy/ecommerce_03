@@ -88,3 +88,7 @@ $('.selection-2').on('change', function(){
     document.getElementById("sort").innerHTML = "<input type='hidden' name='sort' value='"+$(this).val()+"' />" ;
     $('.filter-form').submit();
 });
+
+$('#click-logout').on('click', function(){
+    $('#logout-form').submit();
+});
