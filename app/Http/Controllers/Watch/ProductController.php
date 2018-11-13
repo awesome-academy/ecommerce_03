@@ -39,7 +39,43 @@ class ProductController extends Controller
     public function detail(Request $request, $name, $id)
     {
         $product = Product::findorfail($id);
-        return view('watch.product_detail', compact('product'));
+
+        if (Auth::check()){
+            $recent = 'recent'.Auth::user()->id;
+        } else {
+            $recent = 'recent';
+        }
+        if (Cookie::get($recent)){
+            $cookie_data = Cookie::get($recent);
+            $recent_data = json_decode($cookie_data, true);
+        } else {
+            $recent_data = array();
+        }
+
+        $item_id_list = array_column($recent_data, 'id');
+
+        if(in_array($product->id, $item_id_list)) {
+            foreach($recent_data as $keys => $values) {
+                if($recent_data[$keys]["id"] == $product->id) {
+                    unset($recent_data[$keys]);
+                }
+            }
+        }
+
+        $item_array = array(
+            'id'   => $product->id,
+            'name'   => $product->name,
+            'picture' => $product->picture,
+        );
+        $recent_data[] = $item_array;
+
+        if (count($recent_data) > config('custom.paginate')){
+            array_slice($recent_data, config('custom.min'));
+        }
+        $item_data = json_encode($recent_data);
+        $cookie = cookie($recent, $item_data, config('custom.timeout_cookie'));
+
+        return response()->view('watch.product_detail', compact('product', 'recent_data'))->withCookie($cookie);
     }
 
     public function filter(Request $request)

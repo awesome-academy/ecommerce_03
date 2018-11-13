@@ -144,9 +144,42 @@
         </div>
     </div>
 
+    @if ($recent_data != null)
     <section class="relateproduct bgwhite p-t-45 p-b-138">
         <div class="container">
+            <div class="sec-title p-b-60">
+                <h3 class="m-text5 t-center">
+                    @lang('message.recently_viewed_product')
+                </h3>
+            </div>
 
+            <div class="wrap-slick2">
+                <div class="slick2">
+                    @foreach ($recent_data as $keys => $value)
+                    <div class="item-slick2 p-l-15 p-r-15">
+                        <div class="block2">
+                            <div class="block2-img wrap-pic-w of-hidden pos-relative">
+                                {{ Html::image(asset("images/products/".$value['picture'])) }}
+
+                                <div class="block2-overlay trans-0-4">
+                                    <a href="#" class="block2-btn-addwishlist hov-pointer trans-0-4">
+                                        <i class="icon-wishlist icon_heart_alt" aria-hidden="true"></i>
+                                        <i class="icon-wishlist icon_heart dis-none" aria-hidden="true"></i>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="block2-txt p-t-20">
+                                <a target="_blank" href="{{route('product.detail',['name' => str_slug($value['name']),
+                                    'id' => $value['id']])}}" class="block2-name dis-block s-text3 p-b-5">{{ $value['name'] }}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
+            </div>
         </div>
     </section>
+    @endif
 @endsection
