@@ -99,5 +99,6 @@ return [
     'status' => 'Status',
     'not_delivery' => 'Not Delivery',
     'delivered' => 'Delivered',
+    'recently_viewed_product' => 'Recently Viewed Products'
 
 ];
