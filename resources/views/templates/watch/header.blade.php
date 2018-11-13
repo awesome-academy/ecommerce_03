@@ -72,7 +72,7 @@
                                     @if (Auth::user()->role == config('custom.customer'))
                                         <li><a href="{{ Route('profile.order') }}">@lang('message.your_order')</a></li>
                                     @else
-                                        <li><a href="">@lang('message.admin')</a></li>
+                                        <li><a href="{{ Route('dashboard.index') }}">@lang('message.admin.admin')</a></li>
                                     @endif
                                     <li>
                                         <a id="click-logout" href="javascript:;">@lang('message.logout')</a>

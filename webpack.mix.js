@@ -47,3 +47,9 @@ mix.scripts([
     'resources/assets/vendor/noui/nouislider.min.js',
     'resources/assets/js/filterbar.js',
 ], 'public/js/all.js');
+
+mix.styles([
+    'resources/assets/css/custom-admin.css',
+    'resources/assets/fonts/font-awesome-4.7.0/css/font-awesome.min.css',
+    'resources/assets/css/admin-main.css',
+], 'public/css/admin.css');
