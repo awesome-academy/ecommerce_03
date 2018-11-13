@@ -17,5 +17,7 @@ return [
     'million' => 1000000,
     'type_first' => 1,
     'type_second' => 2,
+    'customer' => 'customer',
+    'admin' => 'admin',
 
 ];

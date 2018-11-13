@@ -61,6 +61,7 @@ return [
         'quantity' => 'Quantity',
         'total' => 'Total',
         'no_products' => 'No products in cart',
+        'picture' => 'Picture',
     ],
     'phone' => 'Phone Number',
     'address' => 'Address',
@@ -90,5 +91,13 @@ return [
         'price_asc' => 'Price: low to high',
         'price_desc' => 'Price: high to low',
     ],
+    'your_order' => 'Your Order',
+    'admin' => 'Admin',
+    'number_your_order' => 'Numbers of your order',
+    'order_number' => 'Order Number',
+    'order_at' => 'Order at',
+    'status' => 'Status',
+    'not_delivery' => 'Not Delivery',
+    'delivered' => 'Delivered',
 
 ];
