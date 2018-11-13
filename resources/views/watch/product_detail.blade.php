@@ -80,9 +80,64 @@
                     </h5>
 
                     <div class="dropdown-content dis-none p-t-15 p-b-23">
-                        <p class="s-text8">
-
-                        </p>
+                        <div class="placeholder">
+                            <span class="stars" data-rating="{{ $product->rating }}" data-num-stars="5" ></span>
+                            <span class="small">({{ $product->rating }})</span>
+                            <span class="m-l-20">@lang('message.review'):  {{ count($product->ratings) }}</span>
+                        </div>
+                        @if (Auth::check())
+                            @if (Auth::user()->role == 'customer' && $product->ratings->where('user_id', '=', Auth::user()->id)->count() < config('custom.min'))
+                            <section class='row rating-widget'>
+                                <div class='col-md-4 rating-stars text-center'>
+                                    <ul id='stars'>
+                                        <li class="selected" data-value='0'></li>
+                                        <li class='star' title='Poor' data-value='1'>
+                                            <i class='fa fa-star'></i>
+                                        </li>
+                                        <li class='star' title='Fair' data-value='2'>
+                                            <i class='fa fa-star'></i>
+                                        </li>
+                                        <li class='star' title='Good' data-value='3'>
+                                            <i class='fa fa-star'></i>
+                                        </li>
+                                        <li class='star' title='Excellent' data-value='4'>
+                                            <i class='fa fa-star'></i>
+                                        </li>
+                                        <li class='star' title='WOW!!!' data-value='5'>
+                                            <i class='fa fa-star'></i>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class='col-md-8 success-box'>
+                                    <div class='clearfix'></div>
+                                    <div class='text-message'></div>
+                                    <div class='clearfix'></div>
+                                </div>
+                                <div class="col-md-12">
+                                    {{ Form::open(['route' => 'rating.index', 'method' => 'get', 'id' => 'rating-form']) }}
+                                        {!! Form::textarea('rating-content', '', ['class' => 'dis-block s-text7 size22 bo4 p-1 m-b-5',
+                                        'rows' => config('custom.two'), 'cols' => config('custom.cols'), 'required', 'id' => 'content-form-rating']) !!}
+                                        {{ Form::hidden('rating-name', route('rating.index'), ['class' => 'rating-name']) }}
+                                        {{ Form::hidden('change-rating', route('rating.changerating'), ['class' => 'route-change-rating']) }}
+                                        {{ Form::hidden('product-id', $product->id, ['class' => 'product-id']) }}
+                                        {{ Form::hidden('user-id', Auth::user()->id, ['class' => 'user-id']) }}
+                                        {{ Form::submit(trans('message.confirm'), ['class' => 'col-md-4 flex-c-m size2 bg1 bo-rad-23 hov1 m-text3 trans-0-4', 'id' => 'submit-rating']) }}
+                                    {{ Form::close() }}
+                                </div>
+                            </section>
+                            @endif
+                        @endif
+                        <section class="content-rating row m-t-10">
+                            <div class="ajax-content"></div>
+                            @foreach($product->ratings as $rating)
+                            <div class="col-md-12">
+                                <span class="stars" data-rating="{{ $rating->point }}" data-num-stars="5" ></span>
+                                <span class="m-l-20">{{ $rating->user->name }}</span>
+                                <span class="m-l-20">{{ $rating->created_at }}</span>
+                                <p>{!! $rating->content !!}</p>
+                            </div>
+                            @endforeach
+                        </section>
                     </div>
                 </div>
             </div>
