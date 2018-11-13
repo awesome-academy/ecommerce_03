@@ -9,6 +9,7 @@ return [
     'rows' => 4,
     'five' => 5,
     'nine' =>9,
+    'ten' => 10,
     'timeout_cookie' => 86000,
     'unset_cookie' => -86000,
     'vnd' => 'VND',

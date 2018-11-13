@@ -2421,3 +2421,35 @@ input.num-product::-webkit-inner-spin-button {
   height: 400px;
   overflow: auto;
 }
+
+.success-box > div {
+  vertical-align: top;
+  display: inline-block;
+  color: #888;
+}
+.rating-stars ul {
+  list-style-type: none;
+  padding: 0;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+}
+.rating-stars ul > li.star {
+  display: inline-block;
+}
+.rating-stars ul > li.star > i.fa {
+  font-size: 1.5em;
+  color: #ccc;
+}
+.rating-stars ul > li.star.hover > i.fa {
+  color: #FFCC36;
+}
+.rating-stars ul > li.star.selected > i.fa {
+  color: #FF912C;
+}
+.placeholder {
+  text-align: center;
+}
+.content-rating {
+  max-height: 500px;
+  overflow: auto;
+}

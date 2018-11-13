@@ -31,4 +31,7 @@ Route::group(['namespace' => 'Watch'], function() {
 
     Route::resource('profile', 'ProfileController', ['only' => 'index'])->middleware('auth');
     Route::get('your-order', 'ProfileController@yourOrder')->name('profile.order')->middleware('auth');
+
+    Route::resource('rating', 'RatingController', ['only' => 'index'])->middleware('auth');
+    Route::get('changerating', 'RatingController@changeRating')->name('rating.changerating')->middleware('auth');
 });
