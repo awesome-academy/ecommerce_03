@@ -29,7 +29,7 @@ Route::group(['namespace' => 'Watch'], function() {
     Route::post('confirm', 'CartController@confirm')->name('cart.confirm')->middleware('auth');
     Route::post('checkout', 'CartController@checkout')->name('cart.checkout')->middleware('auth');
 
-    Route::resource('profile', 'ProfileController', ['only' => 'index'])->middleware('auth');
+    Route::resource('profile', 'ProfileController', ['only' => ['index', 'update']])->middleware('auth');
     Route::get('your-order', 'ProfileController@yourOrder')->name('profile.order')->middleware('auth');
 
     Route::resource('rating', 'RatingController', ['only' => 'index'])->middleware('auth');

@@ -99,6 +99,11 @@ return [
     'status' => 'Status',
     'not_delivery' => 'Not Delivery',
     'delivered' => 'Delivered',
-    'recently_viewed_product' => 'Recently Viewed Products'
+    'recently_viewed_product' => 'Recently Viewed Products',
+    'please_buy' => 'Please buy product then comeback to update more your information!!! Sorry.',
+    'update_success' => 'Updated Profile Success',
+    'new_password' => 'New Password',
+    'confirm_new_password' => 'Confirm New Password',
+    'change_avatar' => 'Change Avatar',
 
 ];
