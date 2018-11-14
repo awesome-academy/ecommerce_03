@@ -201,3 +201,21 @@ function changerating(product_id){
         }
     });
 }
+
+function validatePassword(){
+    if($("#password_profile").val() != $("#confirm_password_profile").val()) {
+        $('#confirm_password_profile')[0].setCustomValidity("Passwords Don't Match");
+    } else {
+        $('#confirm_password_profile')[0].setCustomValidity('');
+    }
+}
+$("#password_profile").on('change', function(){
+    if ($("#password_profile").val() != null){
+        $("#password_profile").attr('require', true);
+        $("#password_profile").attr('minlength', 6);
+        validatePassword();
+    }
+});
+$("#confirm_password_profile").on('keyup', function(){
+    validatePassword();
+});
