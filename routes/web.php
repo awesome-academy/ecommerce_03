@@ -35,3 +35,6 @@ Route::group(['namespace' => 'Watch'], function() {
     Route::resource('rating', 'RatingController', ['only' => 'index'])->middleware('auth');
     Route::get('changerating', 'RatingController@changeRating')->name('rating.changerating')->middleware('auth');
 });
+Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => 'auth'], function() {
+    Route::resource('', 'DashboardController', ['only' => 'index'])->names(['index' => 'dashboard.index']);
+});

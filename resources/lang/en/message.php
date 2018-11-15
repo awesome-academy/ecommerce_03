@@ -92,7 +92,6 @@ return [
         'price_desc' => 'Price: high to low',
     ],
     'your_order' => 'Your Order',
-    'admin' => 'Admin',
     'number_your_order' => 'Numbers of your order',
     'order_number' => 'Order Number',
     'order_at' => 'Order at',
@@ -105,5 +104,13 @@ return [
     'new_password' => 'New Password',
     'confirm_new_password' => 'Confirm New Password',
     'change_avatar' => 'Change Avatar',
+    'admin' => [
+        'admin' => 'Admin',
+        'user' => 'User',
+        'category' => 'Category',
+        'product' => 'Product',
+        'order' => 'Order',
+        'view_detail' => 'View Detail',
+    ],
 
 ];
