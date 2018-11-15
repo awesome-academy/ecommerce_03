@@ -111,6 +111,15 @@ return [
         'product' => 'Product',
         'order' => 'Order',
         'view_detail' => 'View Detail',
+        'add' => 'Add',
+        'edit' => 'Edit',
+        'role' => 'Role',
+        'active' => 'Active',
+        'inactive' => 'Inactive',
+        'add_user' => 'Add User',
+        'edit_user' => 'Edit User',
+        'add_user_suc' => 'Add User Succes',
+        'add_user_err' => 'Add User Error',
     ],
 
 ];

@@ -3,7 +3,7 @@
         <a href="{{ Route('dashboard.index') }}"><i class="fa fa-fw fa-home"></i> @lang('message.dashboard')</a>
     </li>
     <li class="">
-        <a href=""><i class="fa fa-fw fa-user"></i> @lang('message.admin.user')</a>
+        <a href="{{ Route('user.index') }}"><i class="fa fa-fw fa-user"></i> @lang('message.admin.user')</a>
     </li>
     <li class="">
         <a href=""><i class="fa fa-fw fa-bars"></i> @lang('message.admin.category')</a>

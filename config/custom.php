@@ -20,5 +20,6 @@ return [
     'type_second' => 2,
     'customer' => 'customer',
     'admin' => 'admin',
+    'mail_admin' => 'admin@gmail.com',
 
 ];
