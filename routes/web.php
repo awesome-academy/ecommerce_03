@@ -37,4 +37,6 @@ Route::group(['namespace' => 'Watch'], function() {
 });
 Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => 'auth'], function() {
     Route::resource('', 'DashboardController', ['only' => 'index'])->names(['index' => 'dashboard.index']);
+    Route::resource('user', 'UserController', ['except' => 'show']);
+    Route::get('changeActive/user', 'UserController@changeActive')->name('user.active');
 });

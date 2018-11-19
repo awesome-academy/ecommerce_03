@@ -70,7 +70,7 @@ class ProductController extends Controller
         $recent_data[] = $item_array;
 
         if (count($recent_data) > config('custom.paginate')){
-            array_slice($recent_data, config('custom.min'));
+           $recent_data = array_slice($recent_data, config('custom.min'));
         }
         $item_data = json_encode($recent_data);
         $cookie = cookie($recent, $item_data, config('custom.timeout_cookie'));

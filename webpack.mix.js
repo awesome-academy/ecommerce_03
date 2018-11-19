@@ -53,3 +53,7 @@ mix.styles([
     'resources/assets/fonts/font-awesome-4.7.0/css/font-awesome.min.css',
     'resources/assets/css/admin-main.css',
 ], 'public/css/admin.css');
+
+mix.scripts([
+    'resources/assets/js/admin.js',
+], 'public/js/admin.js');
