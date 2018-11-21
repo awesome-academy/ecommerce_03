@@ -4,26 +4,30 @@ namespace App\Http\Controllers\Watch;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Customer;
-use App\Models\User;
-use App\Models\Order;
-use App\Models\OrderDetail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use App\Repositories\UserRepository;
+use App\Repositories\CustomerRepository;
 
 class ProfileController extends Controller
 {
+    public function __construct(UserRepository $userRepository, CustomerRepository $customerRepository)
+    {
+        $this->userRepository = $userRepository;
+        $this->customerRepository = $customerRepository;
+    }
+
     public function index()
     {
-        $user = User::findorfail(Auth::user()->id);
+        $user = $this->userRepository->findorfail(Auth::user()->id);
 
         return view('watch.profile', compact('user'));
     }
 
     public function update(Request $request, $id)
     {
-        $user = User::findorfail($id);
-        $customer = Customer::where('user_id', '=', $id)->first();
+        $user = $this->userRepository->findorfail($id);
+        $customer = $this->customerRepository->firstCustomer();
         $data_user = [
             'name' => $request->name,
             'email' => $request->email,
@@ -61,7 +65,7 @@ class ProfileController extends Controller
 
     public function yourOrder()
     {
-        $customer = User::findorfail(Auth::user()->id);
+        $customer = $this->userRepository->findorfail(Auth::user()->id);
         if (!$customer->customers){
             return redirect()->route('index');
         }

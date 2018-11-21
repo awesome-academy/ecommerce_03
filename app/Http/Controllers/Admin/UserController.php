@@ -4,14 +4,19 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\User;
+use App\Repositories\UserRepository;
 use Exception;
 
 class UserController extends Controller
 {
+    public function __construct(UserRepository $userRepository)
+    {
+        $this->userRepository = $userRepository;
+    }
+
     public function index()
     {
-        $users = User::paginate(config('custom.ten'));
+        $users = $this->userRepository->paginate(config('custom.ten'));
 
         return view('admin.user.index', compact('users'));
     }
@@ -31,7 +36,7 @@ class UserController extends Controller
             'active' => config('custom.zero'),
         ];
         try {
-            $result = User::insert($data);
+            $result = $this->userRepository->create($data);
             $request->session()->flash('suc', trans('message.admin.add_user_suc'));
         } catch (Exception $e) {
             $request->session()->flash('err', trans('message.admin.add_user_err'));
@@ -42,13 +47,14 @@ class UserController extends Controller
 
     public function edit($id)
     {
-        $user = User::findorfail($id);
+        $user = $this->userRepository->findorfail($id);
 
         return view('admin.user.edit', compact('user'));
     }
 
-    public function update(Request $request, User $user)
+    public function update(Request $request, $id)
     {
+        $user = $this->userRepository->findorfail($id);
         try {
             $user->email = $request->email;
             $user->name = $request->name;
@@ -61,8 +67,9 @@ class UserController extends Controller
         return redirect()->route('user.edit', [$user->id]);
     }
 
-    public function destroy(Request $request, User $user)
+    public function destroy(Request $request, $id)
     {
+        $user = $this->userRepository->findorfail($id);
         try {
             $user->delete();
             $request->session()->flash('suc', trans('message.delete_suc'));
@@ -70,12 +77,12 @@ class UserController extends Controller
             $request->session()->flash('err', $e->getMessage());
         }
 
-        return redirect()->route('user.index');
+        return redirect()->back();
     }
 
     public function changeActive(Request $request)
     {
-        $user = User::findorfail($request->id);
+        $user = $this->userRepository->findorfail($request->id);
         if ($user->active == config('custom.zero')){
             $user->active = config('custom.min');
         } else {
