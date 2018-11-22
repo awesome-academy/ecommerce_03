@@ -96,7 +96,8 @@ return [
     'order_number' => 'Order Number',
     'order_at' => 'Order at',
     'status' => 'Status',
-    'not_delivery' => 'Not Delivery',
+    'unconfirm' => 'Unconfirm',
+    'delivering' => 'Delivering',
     'delivered' => 'Delivered',
     'recently_viewed_product' => 'Recently Viewed Products',
     'please_buy' => 'Please buy product then comeback to update more your information!!! Sorry.',
@@ -120,6 +121,11 @@ return [
         'edit_user' => 'Edit User',
         'add_user_suc' => 'Add User Succes',
         'add_user_err' => 'Add User Error',
+    ],
+    'chart' => [
+        'revenue_shop' => 'Revenue of Shop',
+        'around_12mons' => 'Around 12 Months',
+        'number_user' => 'Number User',
     ],
 
 ];
