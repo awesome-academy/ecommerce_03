@@ -11,7 +11,8 @@
                         <span class="m-r-30">@lang('message.order_number'): <strong>{{ $order->id }}</strong></span>
                         <span class="m-r-30">@lang('message.order_at'): <strong>{{ $order->created_at }}</strong></span>
                         <span>@lang('message.status'):
-                            <strong>{{ $order->status == config('custom.zero') ? trans('message.not_delivery') : trans('message.delivered') }}
+                            <strong>{{ $order->status == config('custom.zero') ? trans('message.unconfirm') :
+                                ($order->status == config('custom.min') ? trans('message.delivering') : trans('message.delivered')) }}
                             </strong>
                         </span>
                     </p>

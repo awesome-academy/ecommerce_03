@@ -10,6 +10,7 @@ return [
     'five' => 5,
     'nine' =>9,
     'ten' => 10,
+    'eleven' => 11,
     'timeout_cookie' => 86000,
     'unset_cookie' => -86000,
     'vnd' => 'VND',
@@ -21,5 +22,7 @@ return [
     'customer' => 'customer',
     'admin' => 'admin',
     'mail_admin' => 'admin@gmail.com',
+    'thousand' => 1000,
+    'five_hundred' => 500,
 
 ];
