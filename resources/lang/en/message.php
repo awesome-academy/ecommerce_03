@@ -127,5 +127,8 @@ return [
         'around_12mons' => 'Around 12 Months',
         'number_user' => 'Number User',
     ],
+    'email_registered' => 'This email was registered',
+    'login_with_fb' => 'Login with Facebook',
+    'login_with_gg' => 'Login with Google',
 
 ];

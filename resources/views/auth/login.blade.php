@@ -6,6 +6,7 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">@lang('message.login')</div>
+                @include('errors.error')
 
                 <div class="card-body">
                     {!! Form::open(['route' => 'login', 'method' => 'post']) !!}
@@ -15,8 +16,6 @@
 
                             <div class="col-md-6">
                                 {!! Form::email('email', old('email'), ['id' => 'email', 'required', 'autofocus', 'class' => 'form-control'. ($errors->has('email') ? ' is-invalid' : '')]) !!}
-
-                                @include('errors.error')
                             </div>
                         </div>
 
@@ -25,8 +24,6 @@
 
                             <div class="col-md-6">
                                 {!! Form::password('password', ['id' => 'password', 'required', 'class' => 'form-control'. ($errors->has('password') ? ' is-invalid' : '')]) !!}
-
-                                @include('errors.error')
                             </div>
                         </div>
 
@@ -47,6 +44,16 @@
                                 <a class="btn btn-link" href="{{ route('password.request') }}">
                                     @lang('message.forgot_password')
                                 </a>
+                            </div>
+                        </div>
+                        <div class="form-group row mb-0">
+                            <div class="col-md-8 offset-md-4">
+                                <a href="{{ route('social.login', 'facebook') }}"><i class="fa fa-facebook"></i> @lang('message.login_with_fb')</a>
+                            </div>
+                        </div>
+                        <div class="form-group row mb-0">
+                            <div class="col-md-8 offset-md-4">
+                                <a href="{{ route('social.login', 'google') }}"> <i class="fa fa-google"></i> @lang('message.login_with_gg')</a>
                             </div>
                         </div>
                     {!! Form::close() !!}

@@ -40,3 +40,6 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => 'auth
     Route::resource('user', 'UserController', ['except' => 'show']);
     Route::get('changeActive/user', 'UserController@changeActive')->name('user.active');
 });
+
+Route::get('/auth/{provide}', 'SocialAuthController@redirect')->name('social.login');
+Route::get('/auth/{provide}/callback', 'SocialAuthController@callback');
