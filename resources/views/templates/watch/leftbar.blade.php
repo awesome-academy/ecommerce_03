@@ -33,18 +33,18 @@
         </h4>
         <div class="col col-12">
             <div class="checkbox">
-                {{ Form::checkbox('strap[]', config('custom.zero'),
-                    !request()->input('strap') || in_array(config('custom.zero'), request()->input('strap')) ? true : false, ['id' => 'strap-all']) }}
+                {{ Form::checkbox('strap[]', trans('message.leftbar.all'), !request()->input('strap')
+                    || in_array(trans('message.leftbar.all'), request()->input('strap')) ? true : false, ['id' => 'strap-all']) }}
                 {{ Form::label('', trans('message.leftbar.all')) }}
             </div>
             <div class="checkbox">
-                {{ Form::checkbox('strap[]', config('custom.min'),
-                    request()->input('strap') && in_array(config('custom.min'), request()->input('strap')) ? true : false, ['id' => 'strap-'.config('custom.min')]) }}
+                {{ Form::checkbox('strap[]', trans('message.leftbar.leather_cord'), request()->input('strap')
+                    && in_array(trans('message.leftbar.leather_cord'), request()->input('strap')) ? true : false, ['id' => 'strap-'.config('custom.min')]) }}
                 {{ Form::label('', trans('message.leftbar.leather_cord')) }}
             </div>
             <div class="checkbox">
-                {{ Form::checkbox('strap[]', config('custom.two'),
-                    request()->input('strap') && in_array(config('custom.two'), request()->input('strap')) ? true : false, ['id' => 'strap-'.config('custom.two')]) }}
+                {{ Form::checkbox('strap[]', trans('message.leftbar.stainless_steel'), request()->input('strap')
+                    && in_array(trans('message.leftbar.stainless_steel'), request()->input('strap')) ? true : false, ['id' => 'strap-'.config('custom.two')]) }}
                 {{ Form::label('', trans('message.leftbar.stainless_steel')) }}
             </div>
         </div>
@@ -54,18 +54,18 @@
         </h4>
         <div class="col col-12">
             <div class="checkbox">
-                {{ Form::checkbox('energy[]', config('custom.zero'),
-                    !request()->input('energy') || in_array(config('custom.zero'), request()->input('energy')) ? true : false, ['id' => 'energy-all']) }}
+                {{ Form::checkbox('energy[]', trans('message.leftbar.all'), !request()->input('energy')
+                    || in_array(trans('message.leftbar.all'), request()->input('energy')) ? true : false, ['id' => 'energy-all']) }}
                 {{ Form::label('', trans('message.leftbar.all')) }}
             </div>
             <div class="checkbox">
-                {{ Form::checkbox('energy[]', config('custom.min'),
-                    request()->input('energy') && in_array(config('custom.min'), request()->input('energy')) ? true : false, ['id' => 'energy-'.config('custom.min')]) }}
+                {{ Form::checkbox('energy[]', trans('message.leftbar.mechanical_watch'), request()->input('energy')
+                    && in_array(trans('message.leftbar.mechanical_watch'), request()->input('energy')) ? true : false, ['id' => 'energy-'.config('custom.min')]) }}
                 {{ Form::label('', trans('message.leftbar.mechanical_watch')) }}
             </div>
             <div class="checkbox">
-                {{ Form::checkbox('energy[]', config('custom.two'),
-                    request()->input('energy') && in_array(config('custom.two'), request()->input('energy')) ? true : false, ['id' => 'energy-'.config('custom.two')]) }}
+                {{ Form::checkbox('energy[]', trans('message.leftbar.electronic_watch'), request()->input('energy')
+                    && in_array(trans('message.leftbar.electronic_watch'), request()->input('energy')) ? true : false, ['id' => 'energy-'.config('custom.two')]) }}
                 {{ Form::label('', trans('message.leftbar.electronic_watch')) }}
             </div>
         </div>
@@ -75,18 +75,18 @@
         </h4>
         <div class="col col-12">
             <div class="checkbox">
-                {{ Form::checkbox('skin[]', config('custom.zero'),
-                    !request()->input('skin') || in_array(config('custom.zero'), request()->input('skin')) ? true : false, ['id' => 'skin-all']) }}
+                {{ Form::checkbox('skin[]', trans('message.leftbar.all'), !request()->input('skin')
+                    || in_array(trans('message.leftbar.all'), request()->input('skin')) ? true : false, ['id' => 'skin-all']) }}
                 {{ Form::label('', trans('message.leftbar.all')) }}
             </div>
             <div class="checkbox">
-                {{ Form::checkbox('skin[]', config('custom.min'),
-                    request()->input('skin') && in_array(config('custom.min'), request()->input('skin')) ? true : false, ['id' => 'skin-'.config('custom.min')]) }}
+                {{ Form::checkbox('skin[]', trans('message.leftbar.solid_gold'), request()->input('skin')
+                    && in_array(trans('message.leftbar.solid_gold'), request()->input('skin')) ? true : false, ['id' => 'skin-'.config('custom.min')]) }}
                 {{ Form::label('', trans('message.leftbar.solid_gold')) }}
             </div>
             <div class="checkbox">
-                {{ Form::checkbox('skin[]', config('custom.two'),
-                    request()->input('skin') && in_array(config('custom.two'), request()->input('skin')) ? true : false, ['id' => 'skin-'.config('custom.two')]) }}
+                {{ Form::checkbox('skin[]', trans('message.leftbar.plastic_cover'), request()->input('skin')
+                    && in_array(trans('message.leftbar.plastic_cover'), request()->input('skin')) ? true : false, ['id' => 'skin-'.config('custom.two')]) }}
                 {{ Form::label('', trans('message.leftbar.plastic_cover')) }}
             </div>
         </div>

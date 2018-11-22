@@ -3,17 +3,26 @@
 namespace App\Http\Controllers\Watch;
 
 use Illuminate\Support\Facades\Auth;
-use App\Models\Product;
-use App\Models\Customer;
-use App\Models\Order;
-use App\Models\OrderDetail;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
 use Cookie;
+use App\Repositories\ProductRepository;
+use App\Repositories\CustomerRepository;
+use App\Repositories\OrderRepository;
+use App\Repositories\OrderDetailRepository;
 
 class CartController extends Controller
 {
+    public function __construct(ProductRepository $productRepository, CustomerRepository $customerRepository,
+        OrderRepository $orderRepository, OrderDetailRepository $orderDetailRepository)
+    {
+        $this->productRepository = $productRepository;
+        $this->customerRepository = $customerRepository;
+        $this->orderRepository = $orderRepository;
+        $this->orderDetailRepository = $orderDetailRepository;
+    }
+
     public function cookieCart()
     {
         $user_cart = 'shop_cart'.Auth::user()->id;
@@ -38,7 +47,7 @@ class CartController extends Controller
     {
         $count_cart = config('custom.zero');
         $user_cart = 'shop_cart'.Auth::user()->id;
-        $product = Product::findorfail($request->id_product);
+        $product = $this->productRepository->findorfail($request->id_product);
         $cart_data = $this->cookieCart();
         $item_id_list = array_column($cart_data, 'id_product');
 
@@ -112,9 +121,9 @@ class CartController extends Controller
 
     public function inputInfo()
     {
-        $count = Customer::where('user_id', '=', Auth::user()->id)->count();
+        $count = $this->customerRepository->countCustomer();
         if ($count > config('custom.zero')){
-            $customer = Customer::where('user_id', '=', Auth::user()->id)->first();
+            $customer = $this->customerRepository->firstCustomer();
         } else {
             $customer = NULL;
         }
@@ -126,9 +135,9 @@ class CartController extends Controller
 
     public function confirm(Request $request)
     {
-        $count = Customer::where('user_id', '=', Auth::user()->id)->count();
+        $count = $this->customerRepository->countCustomer();
         if ($count > config('custom.zero')){
-            $customer = Customer::where('user_id', '=', Auth::user()->id)->first();
+            $customer = $this->customerRepository->firstCustomer();
             $customer->name = trim($request->name);
             $customer->phone = trim($request->phone);
             $customer->address = trim($request->address);
@@ -141,8 +150,8 @@ class CartController extends Controller
                 'avatar' => '',
                 'user_id' => Auth::user()->id,
             ];
-            Customer::insert($data);
-            $customer = Customer::where('user_id', '=', Auth::user()->id)->first();
+            $this->customerRepository->create($data);
+            $customer = $this->customerRepository->firstCustomer();
         }
 
         $products = $this->cookieCart();
@@ -153,7 +162,7 @@ class CartController extends Controller
     public function checkout(Request $request)
     {
         $user_cart = 'shop_cart'.Auth::user()->id;
-        $customer = Customer::where('user_id', '=', Auth::user()->id)->first();
+        $customer = $this->customerRepository->firstCustomer();
         $cart_data = $this->cookieCart();
 
         $item_id_list = array_column($cart_data, 'id_product');
@@ -171,9 +180,8 @@ class CartController extends Controller
             'total_price' => $total,
             'customer_id' => $customer->id,
         ];
-        Order::insert($data);
-        $order = Order::where('customer_id', '=', $customer->id)->orderBy('id' ,'DESC')->first();
-
+        $this->orderRepository->create($data);
+        $order = $this->orderRepository->descFirst($customer->id);
         foreach($cart_data as $keys => $values) {
             $dataDetail = [
                 'order_id' => $order->id,
@@ -182,15 +190,15 @@ class CartController extends Controller
                 'price' => $cart_data[$keys]["price"],
                 'name_product'=> $cart_data[$keys]["name"],
             ];
-            $product = Product::findorfail($cart_data[$keys]["id_product"]);
+            $product = $this->productRepository->findorfail($cart_data[$keys]["id_product"]);
             $product->best_seller = $product->best_seller + $cart_data[$keys]["quantity"];
             $product->save();
-            OrderDetail::insert($dataDetail);
+            $this->orderDetailRepository->create($dataDetail);
         }
         $item_data = json_encode($cart_data);
         $cookie = cookie($user_cart, $item_data, config('custom.unset_cookie'));
 
-        return redirect()->route('product.index')->withCookie($cookie);
+        return redirect()->route('index')->withCookie($cookie);
     }
 
     public function changeCart(Request $request)
