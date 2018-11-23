@@ -49,7 +49,7 @@ class CartController extends Controller
     {
         $count_cart = config('custom.zero');
         $user_cart = 'shop_cart'.Auth::user()->id;
-        $product = $this->productRepository->findorfail($request->id_product);
+        $product = $this->productRepository->findOrFail($request->id_product);
         $cart_data = $this->cookieCart();
         $item_id_list = array_column($cart_data, 'id_product');
 
@@ -192,7 +192,7 @@ class CartController extends Controller
                 'price' => $cart_data[$keys]["price"],
                 'name_product'=> $cart_data[$keys]["name"],
             ];
-            $product = $this->productRepository->findorfail($cart_data[$keys]["id_product"]);
+            $product = $this->productRepository->findOrFail($cart_data[$keys]["id_product"]);
             $product->best_seller = $product->best_seller + $cart_data[$keys]["quantity"];
             $product->save();
             $this->orderDetailRepository->create($dataDetail);

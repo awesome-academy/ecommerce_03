@@ -20,7 +20,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['namespace' => 'Watch'], function() {
     Route::resource('/', 'ProductController', ['only' => 'index']);
-    Route::get('{name}/{id}', 'ProductController@detail')->name('product.detail');
+    Route::get('{name}/{id}.html', 'ProductController@detail')->name('product.detail');
     Route::get('filter', 'ProductController@filter')->name('product.filter');
 
     Route::resource('cart', 'CartController', ['only' => ['index', 'create', 'update', 'destroy']])->middleware('auth');
@@ -37,8 +37,13 @@ Route::group(['namespace' => 'Watch'], function() {
 });
 Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => 'auth'], function() {
     Route::resource('', 'DashboardController', ['only' => 'index'])->names(['index' => 'dashboard.index']);
+
     Route::resource('user', 'UserController', ['except' => 'show']);
     Route::get('changeActive/user', 'UserController@changeActive')->name('user.active');
+
+    Route::resource('order', 'OrderController', ['only' => ['index', 'show', 'destroy']]);
+    Route::get('order/confirm/{id}', 'OrderController@confirm')->name('order.confirm');
+    Route::get('changeStatus/order', 'OrderController@changeStatus')->name('order.status');
 });
 
 Route::get('/auth/{provide}', 'SocialAuthController@redirect')->name('social.login');

@@ -24,7 +24,7 @@ class ProductController extends Controller
 
     public function detail(Request $request, $name, $id)
     {
-        $product = $this->productRepository->findorfail($id);
+        $product = $this->productRepository->findOrFail($id);
 
         if (Auth::check()){
             $recent = 'recent'.Auth::user()->id;

@@ -258,3 +258,7 @@ ul.alert-dropdown {
 .m-b-50 {
     margin-bottom: 50px;
 }
+
+.product-img img {
+    width: 100px;
+}

@@ -26,7 +26,7 @@ class RatingController extends Controller
         ];
         $this->ratingRepository->create($data);
 
-        $product = $this->productRepository->findorfail($request->product_id);
+        $product = $this->productRepository->findOrFail($request->product_id);
         $avg = $this->ratingRepository->avgProduct($request->product_id);
         $product->rating = $avg;
         $product->save();
@@ -37,7 +37,7 @@ class RatingController extends Controller
 
     public function changeRating(Request $request)
     {
-        $product = $this->productRepository->findorfail($request->product_id);
+        $product = $this->productRepository->findOrFail($request->product_id);
 
         return view('watch.change_rating', compact('product'));
     }

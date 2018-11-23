@@ -143,5 +143,6 @@ return [
     'total_orders_unconfirm' => 'Total Orders Unconfirm',
     'total_orders_delivering' => 'Total Orders Delivering',
     'total_revenue' => 'Total Revenue of Shop',
+    'are_u_sure' => 'Are you sure?',
 
 ];
