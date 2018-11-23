@@ -11,6 +11,8 @@ use App\Repositories\ProductRepository;
 use App\Repositories\CustomerRepository;
 use App\Repositories\OrderRepository;
 use App\Repositories\OrderDetailRepository;
+use App\Jobs\NotifyOrderUnconfirm;
+use Pusher\Pusher;
 
 class CartController extends Controller
 {
@@ -197,6 +199,28 @@ class CartController extends Controller
         }
         $item_data = json_encode($cart_data);
         $cookie = cookie($user_cart, $item_data, config('custom.unset_cookie'));
+
+        $job = new NotifyOrderUnconfirm($order);
+        dispatch($job)->delay(config('custom.min'));
+
+        $getOrder = $this->orderRepository->getOrderUnconfirm();
+        $countOrder = $this->orderRepository->countOrderUnconfirmCustomer($order->customer->id);
+        $options = array(
+            'cluster' => 'ap1',
+            'useTLS' => true
+        );
+        $pusher = new Pusher(
+            env('PUSHER_APP_KEY'),
+            env('PUSHER_APP_SECRET'),
+            env('PUSHER_APP_ID'),
+            $options
+        );
+        $getData = [
+            'count' => $countOrder,
+            'id' => Auth::user()->id,
+        ];
+        $pusher->trigger('notify-unconfirm', 'notify-admin', $getOrder);
+        $pusher->trigger('notify-confirmed', 'notify-user', $getData);
 
         return redirect()->route('index')->withCookie($cookie);
     }
