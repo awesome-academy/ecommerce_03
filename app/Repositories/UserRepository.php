@@ -12,6 +12,11 @@ class UserRepository extends EloquentRepository
         return User::class;
     }
 
+    public function create(array $data = [])
+    {
+        return $this->model->create($data);
+    }
+
     public function countAdmin()
     {
         return $this->model->where('role', config('custom.admin'))->count();

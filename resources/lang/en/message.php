@@ -111,6 +111,7 @@ return [
         'category' => 'Category',
         'product' => 'Product',
         'order' => 'Order',
+        'order_detail' => 'Order Detail',
         'view_detail' => 'View Detail',
         'add' => 'Add',
         'edit' => 'Edit',
@@ -121,6 +122,9 @@ return [
         'edit_user' => 'Edit User',
         'add_user_suc' => 'Add User Succes',
         'add_user_err' => 'Add User Error',
+        'del_order_suc' => 'Delete Order Success',
+        'payment_type' => 'Payment Type',
+        'name_customer' => 'Name Customer',
     ],
     'chart' => [
         'revenue_shop' => 'Revenue of Shop',
@@ -130,5 +134,14 @@ return [
     'email_registered' => 'This email was registered',
     'login_with_fb' => 'Login with Facebook',
     'login_with_gg' => 'Login with Google',
+    'name_shop' => 'NN WATCH SHOP',
+    'infor_customer' => 'Information of Customer',
+    'pls_review_confirm' => 'THIS ORDER UNCONFIRM. PLEASE REVIEW AND CONFIRM IT',
+    'review_these_orders' => 'YOU SHOULD REVIEW THESE ORDERS',
+    'statistic_month' => 'Statistic Month',
+    'total_orders' => 'Total Orders',
+    'total_orders_unconfirm' => 'Total Orders Unconfirm',
+    'total_orders_delivering' => 'Total Orders Delivering',
+    'total_revenue' => 'Total Revenue of Shop',
 
 ];

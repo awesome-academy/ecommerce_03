@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\Order;
 use Cookie;
 
 class AppServiceProvider extends ServiceProvider
@@ -39,6 +40,17 @@ class AppServiceProvider extends ServiceProvider
         View::share('categories', Category::where('parent_id', '=', config('custom.zero'))->get());
         View::share('trend_products', Product::orderBy('best_seller', 'DESC')->limit(config('custom.paginate'))->get());
         View::share('new_products', Product::orderBy('id', 'DESC')->limit(config('custom.paginate'))->get());
+        View::composer('*', function($view) {
+            if (Auth::check()){
+                if (Auth::user()->customers != null) {
+                    $countOrderUnconfirmUser = Order::where('customer_id', Auth::user()->customers->id)->where('status', config('custom.zero'))->count();
+                } else {
+                    $countOrderUnconfirmUser = config('custom.zero');
+                }
+                $view->with('countOrderUnconfirmUser', $countOrderUnconfirmUser);
+            }
+        });
+        View::share('orderUnconfirm', Order::where('status', config('custom.zero'))->get());
     }
 
     /**

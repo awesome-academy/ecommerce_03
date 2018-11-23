@@ -67,10 +67,19 @@
                         @if (Auth::check())
                             <li>
                                 <i class="fa fa-user fa-2x fa-fw"></i>{{ Auth::user()->name }}
+                                <span class="countUser-{{ Auth::user()->id }}">
+                                    @if (Auth::user()->role == config('custom.customer'))
+                                        @if ($countOrderUnconfirmUser > config('custom.zero'))
+                                            ({{ $countOrderUnconfirmUser }})
+                                        @endif
+                                    @endif
+                                </span>
                                 <ul class="sub_menu_user">
                                     <li><a href="{{ Route('profile.index') }}">@lang('message.profile')</a></li>
                                     @if (Auth::user()->role == config('custom.customer'))
-                                        <li><a href="{{ Route('profile.order') }}">@lang('message.your_order')</a></li>
+                                        <li>
+                                            <a href="{{ Route('profile.order') }}">@lang('message.your_order')</a>
+                                        </li>
                                     @else
                                         <li><a href="{{ Route('dashboard.index') }}">@lang('message.admin.admin')</a></li>
                                     @endif
