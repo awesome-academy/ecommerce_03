@@ -44,13 +44,42 @@ if (token) {
  * allows your team to easily build robust real-time web applications.
  */
 
-// import Echo from 'laravel-echo'
+import Echo from 'laravel-echo'
 
-// window.Pusher = require('pusher-js');
+window.Pusher = require('pusher-js');
 
-// window.Echo = new Echo({
-//     broadcaster: 'pusher',
-//     key: process.env.MIX_PUSHER_APP_KEY,
-//     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
-//     encrypted: true
-// });
+window.Echo = new Echo({
+    broadcaster: 'pusher',
+    key: '2dafc8100a8830ddece1',
+    cluster: 'ap1',
+    encrypted: true
+});
+
+/* Pusher Notification */
+$( document ).ready(function() {
+    var pusher = new Pusher('2dafc8100a8830ddece1', {
+        cluster: 'ap1',
+        forceTLS: true
+    });
+    var channel = pusher.subscribe('notify-confirmed');
+    channel.bind('notify-user', function(data) {
+        if (data['count'] > 0) {
+            $('.countUser-' + data['id']).html('(' + data['count'] + ')');
+        } else {
+            $('.countUser-' + data['id']).html('');
+        }
+    });
+
+    var channel2 = pusher.subscribe('notify-unconfirm');
+    channel2.bind('notify-admin', function(data) {
+        var count = 0;
+        var datahtml = '';
+        data.forEach(function(element) {
+            datahtml += '<a href="http://localhost/ecommerce_03/public/admin/order/confirm/'+ element['id']
+                +'" target="_blank">Order Number: ' + element['id'] + ' Unconfirm</a>';
+            count += 1;
+        });
+        $('#number').html(count);
+        $('.message-footer').html(datahtml);
+    });
+});

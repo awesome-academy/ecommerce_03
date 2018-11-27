@@ -6,12 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-
-    <title> @lang('message.admin.admin') </title>
+    <title> @lang('message.admin.admin')</title>
     <link href='/resources/assets/templates/cellphone/images/admin.png' rel='icon' type='image/x-icon'/>
     {{ Html::style(asset('css/admin.css')) }}
 </head>
-
 <body>
     <div id="wrapper">
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -30,20 +28,18 @@
             </style>
             <div id="reload">
                 <ul class="nav navbar-right top-nav">
-                    <li>
-                        <a href="" class="dropdown-toggle" >
-                            <span class="label label-pill label-danger count" id="number2"></span>
-                            <i class="fa fa-comment"></i>
-                        </a>
-                    </li>
-                    <li class="dropdown">
+                    <li class="dropdown dropdown-notification">
                         <a href="javascript:void" class="dropdown-toggle" data-toggle="dropdown" >
-                            <span class="label label-pill label-danger count" id="number"></span>
-                            <i class="fa fa-envelope"></i> <b class="caret"></b>
+                            <span class="label label-pill label-danger count" id="number">{{ count($orderUnconfirm) }}</span>
+                            <i class="fa fa-bell"></i> <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu message-dropdown">
                             <li class="message-footer">
-                                <a href=""></a>
+                                @foreach($orderUnconfirm as $order)
+                                    <a href="{{ route('order.confirm', $order->id) }}" target="_blank">
+                                        @lang('message.order_number'): {{ $order->id }} @lang('message.unconfirm')
+                                    </a>
+                                @endforeach
                             </li>
                         </ul>
                     </li>
@@ -52,13 +48,6 @@
                             <i class="fa fa-user"></i>    <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu">
-                            <li>
-                                <a href=""><i class="fa fa-fw fa-envelope"></i> </a>
-                            </li>
-                            <li>
-                                <a href=""><i class="fa fa-fw fa-gear"></i> </a>
-                            </li>
-                            <li class="divider"></li>
                             <li>
                                 <a href=""><i class="fa fa-fw fa-power-off"></i> @lang('message.logout')</a>
                             </li>

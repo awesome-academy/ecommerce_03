@@ -24,5 +24,6 @@ return [
     'mail_admin' => 'admin@gmail.com',
     'thousand' => 1000,
     'five_hundred' => 500,
+    'mail_admin_receive' => 'nguyenngon95@gmail.com',
 
 ];
