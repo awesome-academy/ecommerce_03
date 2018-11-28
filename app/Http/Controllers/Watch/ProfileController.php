@@ -19,14 +19,14 @@ class ProfileController extends Controller
 
     public function index()
     {
-        $user = $this->userRepository->findorfail(Auth::user()->id);
+        $user = $this->userRepository->findOrFail(Auth::user()->id);
 
         return view('watch.profile', compact('user'));
     }
 
     public function update(Request $request, $id)
     {
-        $user = $this->userRepository->findorfail($id);
+        $user = $this->userRepository->findOrFail($id);
         $customer = $this->customerRepository->firstCustomer();
         $data_user = [
             'name' => $request->name,
@@ -65,7 +65,7 @@ class ProfileController extends Controller
 
     public function yourOrder()
     {
-        $customer = $this->userRepository->findorfail(Auth::user()->id);
+        $customer = $this->userRepository->findOrFail(Auth::user()->id);
         if (!$customer->customers){
             return redirect()->route('index');
         }

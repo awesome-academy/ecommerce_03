@@ -47,14 +47,14 @@ class UserController extends Controller
 
     public function edit($id)
     {
-        $user = $this->userRepository->findorfail($id);
+        $user = $this->userRepository->findOrFail($id);
 
         return view('admin.user.edit', compact('user'));
     }
 
     public function update(Request $request, $id)
     {
-        $user = $this->userRepository->findorfail($id);
+        $user = $this->userRepository->findOrFail($id);
         try {
             $user->email = $request->email;
             $user->name = $request->name;
@@ -69,7 +69,7 @@ class UserController extends Controller
 
     public function destroy(Request $request, $id)
     {
-        $user = $this->userRepository->findorfail($id);
+        $user = $this->userRepository->findOrFail($id);
         try {
             $user->delete();
             $request->session()->flash('suc', trans('message.delete_suc'));
@@ -82,7 +82,7 @@ class UserController extends Controller
 
     public function changeActive(Request $request)
     {
-        $user = $this->userRepository->findorfail($request->id);
+        $user = $this->userRepository->findOrFail($request->id);
         if ($user->active == config('custom.zero')){
             $user->active = config('custom.min');
         } else {

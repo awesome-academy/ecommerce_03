@@ -18,7 +18,7 @@ interface RepositoryInterface
 
     public function paginate($limit);
 
-    public function findorfail($id, $columns = ['*']);
+    public function findOrFail($id, $columns = ['*']);
 
     public function create(array $data = []);
 

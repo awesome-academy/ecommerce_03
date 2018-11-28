@@ -57,7 +57,7 @@ abstract class EloquentRepository implements RepositoryInterface
         return $this->model->paginate($limit);
     }
 
-    public function findorfail($id, $columns = ['*'])
+    public function findOrFail($id, $columns = ['*'])
     {
         return $this->model->findorfail($id,$columns);
     }
