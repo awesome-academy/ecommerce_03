@@ -36,14 +36,16 @@ Route::group(['namespace' => 'Watch'], function() {
     Route::get('changerating', 'RatingController@changeRating')->name('rating.changerating')->middleware('auth');
 });
 Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => 'auth'], function() {
-    Route::resource('', 'DashboardController', ['only' => 'index'])->names(['index' => 'dashboard.index']);
+    Route::group(['middleware' => 'admin'], function() {
+        Route::resource('', 'DashboardController', ['only' => 'index'])->names(['index' => 'dashboard.index']);
 
-    Route::resource('user', 'UserController', ['except' => 'show']);
-    Route::get('changeActive/user', 'UserController@changeActive')->name('user.active');
+        Route::resource('user', 'UserController', ['except' => 'show']);
+        Route::get('changeActive/user', 'UserController@changeActive')->name('user.active');
 
-    Route::resource('order', 'OrderController', ['only' => ['index', 'show', 'destroy']]);
-    Route::get('order/confirm/{id}', 'OrderController@confirm')->name('order.confirm');
-    Route::get('changeStatus/order', 'OrderController@changeStatus')->name('order.status');
+        Route::resource('order', 'OrderController', ['only' => ['index', 'show', 'destroy']]);
+        Route::get('order/confirm/{id}', 'OrderController@confirm')->name('order.confirm');
+        Route::get('changeStatus/order', 'OrderController@changeStatus')->name('order.status');
+    });
 });
 
 Route::get('/auth/{provide}', 'SocialAuthController@redirect')->name('social.login');
