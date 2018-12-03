@@ -14,9 +14,23 @@
                 @include('errors.error')
             </div>
         </div>
+        <ul class="nav nav-tabs">
+            <li class="chart-click active" id="months"><a href="#">@lang('message.chart.around_12mons')</a></li>
+            <li class="chart-click" id="years"><a href="#">@lang('message.chart.around_4years')</a></li>
+        </ul>
+        <div class="row">
+            <div class="months col-lg-12">
+                {!! $chart->html() !!}
+            </div>
+        </div>
+        <div class="row">
+            <div class="d-none years col-md-12">
+                {!! $year_chart->html() !!}
+            </div>
+        </div>
         <div class="row">
             <div class="col-lg-12">
-                {!! $chart->html() !!}
+                {!! $pie_product_chart->html() !!}
             </div>
         </div>
         <div class="row">
@@ -123,5 +137,7 @@
 </div>
 {!! Charts::scripts() !!}
 {!! $chart->script() !!}
+{!! $year_chart->script() !!}
 {!! $pie_chart->script() !!}
+{!! $pie_product_chart->script() !!}
 @endsection

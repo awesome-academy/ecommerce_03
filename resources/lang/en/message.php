@@ -130,6 +130,8 @@ return [
         'revenue_shop' => 'Revenue of Shop',
         'around_12mons' => 'Around 12 Months',
         'number_user' => 'Number User',
+        'around_4years' => 'Around 4 Years',
+        'number_product_best_seller' => 'Number of Product Best Seller'
     ],
     'email_registered' => 'This email was registered',
     'login_with_fb' => 'Login with Facebook',

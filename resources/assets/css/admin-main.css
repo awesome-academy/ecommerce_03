@@ -262,3 +262,7 @@ ul.alert-dropdown {
 .product-img img {
     width: 100px;
 }
+
+.d-none {
+    display: none;
+}

@@ -73,4 +73,11 @@ class OrderRepository extends EloquentRepository
                            ->where('status', config('custom.two'))
                            ->sum('total_price');
     }
+
+    public function getTotalPriceYear($year)
+    {
+        return $this->model->whereYear('created_at', Carbon::now()->subYear($year))
+                           ->where('status', config('custom.two'))
+                           ->sum('total_price');
+    }
 }

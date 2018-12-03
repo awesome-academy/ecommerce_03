@@ -86,4 +86,9 @@ class ProductRepository extends EloquentRepository
     {
         return $this->model->orderBy('id', "DESC")->first();
     }
+
+    public function getProductBestSeller($category)
+    {
+        return $this->model->where('category_id', $category)->sum('best_seller');
+    }
 }
