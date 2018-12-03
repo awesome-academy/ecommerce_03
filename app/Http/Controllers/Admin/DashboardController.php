@@ -41,6 +41,18 @@ class DashboardController extends Controller
                 ->dimensions(config('custom.thousand'), config('custom.five_hundred'))
                 ->responsive(true);
 
+        for ($i = config('custom.three'); $i >= config('custom.zero'); $i--) {
+            $year[] = Carbon::now()->subYear($i)->format('Y');
+            $dataYear[] = $this->orderRepository->getTotalPriceYear($i);
+        }
+        $year_chart = Charts::create('bar', 'highcharts')
+                ->title(trans('message.chart.revenue_shop'))
+                ->elementLabel(trans('message.chart.around_4years'))
+                ->labels($year)
+                ->values($dataYear)
+                ->dimensions(config('custom.thousand'), config('custom.five_hundred'))
+                ->responsive(true);
+
         $countAdmin = $this->userRepository->countAdmin();
         $countCustomer = $this->userRepository->countCustomer();
         $pie_chart = Charts::create('pie', 'highcharts')
@@ -50,6 +62,21 @@ class DashboardController extends Controller
                 ->dimensions(config('custom.thousand'), config('custom.five_hundred'))
                 ->responsive(true);
 
-        return view('admin.dashboard.index', compact('chart', 'pie_chart', 'countUser', 'countOrder', 'countCategory', 'countProduct'));
+        $categories = $this->categoryRepository->get();
+        foreach ($categories as $category) {
+            if ($category->parent || count($category->children) < config('custom.min')) {
+                $dataProduct[] = $this->productRepository->getProductBestSeller($category->id);
+                $dataNameCat[] = $category->name;
+            }
+        }
+
+        $pie_product_chart = Charts::create('pie', 'highcharts')
+                ->title(trans('message.chart.number_product_best_seller'))
+                ->labels($dataNameCat)
+                ->values($dataProduct)
+                ->dimensions(config('custom.thousand'), config('custom.five_hundred'))
+                ->responsive(true);
+
+        return view('admin.dashboard.index', compact('chart', 'year_chart', 'pie_chart', 'pie_product_chart', 'countUser', 'countOrder', 'countCategory', 'countProduct'));
     }
 }

@@ -75,8 +75,10 @@ $( document ).ready(function() {
         var count = 0;
         var datahtml = '';
         data.forEach(function(element) {
+            var img = Math.floor(Math.random() * 10 *element['id']);
             datahtml += '<a href="http://localhost/ecommerce_03/public/admin/order/confirm/'+ element['id']
-                +'" target="_blank">Order Number: ' + element['id'] + ' Unconfirm</a>';
+                +'" target="_blank"><img src="https://api.adorable.io/avatars/10/'
+                + img + '.png" /> Order Number: ' + element['id'] + ' Unconfirm</a>';
             count += 1;
         });
         $('#number').html(count);

@@ -37,3 +37,16 @@ $('.status-click').on('click', function(){
         }
     });
 });
+
+$('.chart-click').on('click', function() {
+    $('.chart-click').removeClass('active');
+    $(this).addClass('active');
+    var value_id = $(this).attr('id');
+    if (value_id == 'years') {
+        $('.years').show();
+        $('.months').hide();
+    } else {
+        $('.months').show();
+        $('.years').hide();
+    }
+});

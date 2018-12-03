@@ -54,6 +54,14 @@
                             </table>
                         </div>
                     </div>
+                    <div>
+                        @if ($order->status == config('custom.zero'))
+                            <a href="{{ route('order.confirm', $order->id) }}" class="btn btn-warning">@lang('message.unconfirm')</a>
+                        @endif
+                        {!! Form::open(['route' => ['order.destroy', $order->id], 'method' => 'delete', 'onsubmit' => 'return confirm('.trans('message.are_u_sure').')']) !!}
+                            {{ Form::submit(trans('message.delete'), ['class' => 'btn btn-danger']) }}
+                        {!! Form::close() !!}
+                    </div>
                 </div>
             </div>
         </div>

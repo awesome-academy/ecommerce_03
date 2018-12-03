@@ -36,7 +36,8 @@
                         <ul class="dropdown-menu message-dropdown">
                             <li class="message-footer">
                                 @foreach($orderUnconfirm as $order)
-                                    <a href="{{ route('order.confirm', $order->id) }}" target="_blank">
+                                    <a href="{{ route('order.show', $order->id) }}" target="_blank">
+                                        {{ Html::image("https://api.adorable.io/avatars/10/$order->id.png") }}
                                         @lang('message.order_number'): {{ $order->id }} @lang('message.unconfirm')
                                     </a>
                                 @endforeach
