@@ -91,4 +91,9 @@ class ProductRepository extends EloquentRepository
     {
         return $this->model->where('category_id', $category)->sum('best_seller');
     }
+
+    public function checkProductExist($name)
+    {
+        return $this->model->where('name', $name)->exists();
+    }
 }

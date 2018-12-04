@@ -9,7 +9,7 @@
         <a href="{{ Route('category.index') }}"><i class="fa fa-fw fa-bars"></i> @lang('message.admin.category')</a>
     </li>
     <li class="">
-        <a href=""><i class="fa fa-fw fa-book"></i> @lang('message.admin.product')</a>
+        <a href="{{ Route('product.index') }}"><i class="fa fa-fw fa-book"></i> @lang('message.admin.product')</a>
     </li>
     <li class="">
         <a href="{{ Route('order.index') }}"><i class="fa fa-fw fa-shopping-cart"></i> @lang('message.admin.order')</a>
