@@ -125,6 +125,13 @@ return [
         'del_order_suc' => 'Delete Order Success',
         'payment_type' => 'Payment Type',
         'name_customer' => 'Name Customer',
+        'add_cat_suc' => 'Add Category Success',
+        'edit_cat_suc' => 'Edit Category Success',
+        'del_cat_suc' => 'Delete Category Success',
+        'add_cat' => 'Add Category',
+        'edit_cat' => 'Edit Category',
+        'will_u_del_sub_cat' => 'Will you delete sub category ??',
+        'category_parent' => 'Category Parent',
     ],
     'chart' => [
         'revenue_shop' => 'Revenue of Shop',

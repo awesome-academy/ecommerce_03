@@ -21,4 +21,26 @@ class CategoryRepository extends EloquentRepository
     {
         return $this->model->where('parent_id', '=', config('custom.zero'))->pluck('name', 'id')->prepend('Choose a Category ', '');
     }
+
+    public function getParent()
+    {
+        return $this->model->where('parent_id', config('custom.zero'))->get();
+    }
+
+    public function pluckCategoryParent()
+    {
+        return $this->model->where('parent_id', '=', config('custom.zero'))
+                           ->pluck('name', 'id')
+                           ->prepend('No parent', config('custom.zero'))
+                           ->prepend('Choose a Category ', '');
+    }
+
+    public function pluckCategoryParentDiff($category_id)
+    {
+        return $this->model->where('parent_id', '=', config('custom.zero'))
+                           ->where('id', '!=', $category_id)
+                           ->pluck('name', 'id')
+                           ->prepend('No parent', config('custom.zero'))
+                           ->prepend('Choose a Category ', '');
+    }
 }

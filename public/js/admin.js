@@ -50,3 +50,12 @@ $('.chart-click').on('click', function() {
         $('.years').hide();
     }
 });
+var getLang = $.parseJSON($('input:hidden[name="getLangugue"]').val());
+
+$('.click-confirm-del').on('submit', function() {
+    return confirm(getLang['are_u_sure']);
+});
+
+$('.click-submit-cat').on('submit', function() {
+    return confirm(getLang['admin']['will_u_del_sub_cat']);
+});

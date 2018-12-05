@@ -45,6 +45,8 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => 'auth
         Route::resource('order', 'OrderController', ['only' => ['index', 'show', 'destroy']]);
         Route::get('order/confirm/{id}', 'OrderController@confirm')->name('order.confirm');
         Route::get('changeStatus/order', 'OrderController@changeStatus')->name('order.status');
+
+        Route::resource('category', 'CategoryController', ['expect' => 'show']);
     });
 });
 
