@@ -57,3 +57,7 @@ mix.styles([
 mix.scripts([
     'resources/assets/js/admin.js',
 ], 'public/js/admin.js');
+
+mix.copy([
+    'storage/app/images/products'
+], 'public/images/products');

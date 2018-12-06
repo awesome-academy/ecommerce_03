@@ -47,6 +47,13 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => 'auth
         Route::get('changeStatus/order', 'OrderController@changeStatus')->name('order.status');
 
         Route::resource('category', 'CategoryController', ['expect' => 'show']);
+
+        Route::resource('product', 'ProductController', ['except' => 'show']);
+        Route::get('product/changeCategory', 'ProductController@changeCategory')->name('product.change_category');
+        Route::post('product/import', 'ProductController@import')->name('product.import');
+        Route::get('product/changeStrap', 'ProductController@changeStrap')->name('product.change_strap');
+        Route::get('product/changeSkin', 'ProductController@changeSkin')->name('product.change_skin');
+        Route::get('product/changeEnergy', 'ProductController@changeEnergy')->name('product.change_energy');
     });
 });
 
